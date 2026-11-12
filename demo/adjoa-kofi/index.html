@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adjoa &amp; Kofi | Sample wedding website | Ever After</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../base.css">
+<style>
+  :root { --paper: #FBF8F2; --cream: #F3ECDF; --ink: #1C1A17; --mute: #786E62; --gold: #B08A3E; --gold-soft: #E3CB92; --accent: #B08A3E;
+    --photo-fallback: linear-gradient(140deg, #EADFCB, #CDB58A); }
+  body { background: var(--paper); color: var(--ink); }
+
+  /* Opening: palace doors */
+  .doors { position: fixed; inset: 0; z-index: 50; display: flex; perspective: 1800px; background: #EDE3D1; }
+  .door { flex: 1; position: relative; background: linear-gradient(180deg, #FFFDF8, #F1E7D5); transition: transform 1.6s cubic-bezier(.6,.05,.3,1), filter 1.6s; box-shadow: inset 0 0 0 1px rgba(176,138,62,.35); }
+  .door--l { transform-origin: left center; }
+  .door--r { transform-origin: right center; }
+  .door::before, .door::after { content: ""; position: absolute; left: 14%; right: 14%; border: 1px solid rgba(176,138,62,.55); box-shadow: inset 0 0 0 6px #FBF6EC, inset 0 0 0 7px rgba(176,138,62,.3); }
+  .door::before { top: 9%; height: 46%; border-radius: 999px 999px 4px 4px; }
+  .door::after { top: 61%; bottom: 8%; border-radius: 4px; }
+  .door--l .handle { right: 7%; }
+  .door--r .handle { left: 7%; }
+  .handle { position: absolute; top: 52%; width: 18px; height: 70px; border-radius: 999px; background: linear-gradient(90deg, #8A6A2C, #E3CB92 50%, #8A6A2C); box-shadow: 0 6px 12px -4px rgba(0,0,0,.35); }
+  .doors__mono { position: absolute; left: 50%; top: 31%; transform: translate(-50%, -50%); z-index: 2; text-align: center; pointer-events: none; transition: opacity .5s; }
+  .doors__mono b { display: block; font-family: var(--script); font-weight: 400; font-size: clamp(3rem, 9vw, 5rem); color: var(--gold); line-height: 1; }
+  .doors__mono small { font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: var(--mute); }
+  .doors__btn { position: absolute; left: 50%; bottom: 13%; transform: translateX(-50%); z-index: 2; border: 1px solid var(--gold); background: rgba(251,248,242,.9); color: var(--ink); padding: 1rem 1.7rem; border-radius: 999px; font: 500 .85rem/1 var(--sans); letter-spacing: .2em; cursor: pointer; transition: opacity .5s; }
+  .doors.is-opening .door--l { transform: rotateY(-108deg); filter: brightness(.85); }
+  .doors.is-opening .door--r { transform: rotateY(108deg); filter: brightness(.85); }
+  .doors.is-opening .doors__mono, .doors.is-opening .doors__btn { opacity: 0; }
+  .doors.is-opening { background: transparent; transition: background-color 1s; }
+  .doors.is-done { display: none; }
+
+  /* Editorial */
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 clamp(1.25rem, 4vw, 2.5rem); }
+  .mast { padding-top: 4.5rem; border-bottom: 1px solid var(--ink); }
+  .mast__row { display: flex; justify-content: space-between; font-size: .75rem; letter-spacing: .22em; color: var(--mute); padding: .8rem 0; border-bottom: 1px solid rgba(28,26,23,.15); }
+  .mast h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(3.2rem, 11vw, 9rem); line-height: .95; letter-spacing: .02em; text-align: center; padding: 1.5rem 0 1.2rem; }
+  .mast h1 em { font-family: var(--script); font-style: normal; font-weight: 400; color: var(--gold); font-size: .7em; padding: 0 .1em; }
+
+  .cover { display: grid; grid-template-columns: 1.15fr 1fr; gap: clamp(2rem, 5vw, 4.5rem); padding: clamp(2.5rem, 5vw, 4rem) 0; align-items: center; }
+  .cover .photo { aspect-ratio: 4 / 5; }
+  .cover__kicker { font-size: .78rem; letter-spacing: .24em; color: var(--gold); }
+  .cover h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.2rem, 4.4vw, 3.4rem); line-height: 1.08; margin: .8rem 0 1.2rem; }
+  .cover p { color: var(--mute); }
+  .facts { margin-top: 2rem; border-top: 1px solid var(--ink); }
+  .facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .85rem 0; border-bottom: 1px solid rgba(28,26,23,.15); }
+  .facts dt { font-size: .78rem; letter-spacing: .2em; color: var(--mute); padding-top: .2rem; }
+  .facts dd { margin: 0; font-family: var(--serif); font-weight: 600; font-size: 1.2rem; text-align: right; }
+  .cover .countdown { margin: 2rem 0 0; text-align: left; }
+  .cover .countdown b { font-size: 2.4rem; color: var(--gold); }
+
+  .chapter { padding: clamp(4rem, 9vw, 6.5rem) 0; border-top: 1px solid var(--ink); }
+  .chapter__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: 3rem; flex-wrap: wrap; }
+  .chapter__head h2 { font-family: var(--serif); font-weight: 500; font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1; }
+  .chapter__head span { font-size: .78rem; letter-spacing: .24em; color: var(--mute); }
+
+  .story { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(2.5rem, 5vw, 4rem); }
+  .story li { display: grid; grid-template-columns: 9rem 1fr 15rem; gap: clamp(1.25rem, 4vw, 3rem); align-items: center; }
+  .story li:nth-child(even) { grid-template-columns: 9rem 15rem 1fr; }
+  .story li:nth-child(even) .photo { order: 2; }
+  .story li:nth-child(even) .story__text { order: 3; }
+  .story__year { font-family: var(--serif); font-weight: 500; font-size: clamp(2.6rem, 5vw, 4rem); color: var(--gold); line-height: 1; }
+  .story h3 { font-family: var(--serif); font-weight: 600; font-size: 1.6rem; line-height: 1.2; margin-bottom: .4rem; }
+  .story p { color: var(--mute); }
+  .story .photo { aspect-ratio: 1; }
+
+  .quote { background: var(--cream); text-align: center; padding: clamp(4rem, 9vw, 6.5rem) 1.5rem; }
+  .quote p { font-family: var(--serif); font-style: italic; font-size: clamp(1.7rem, 4vw, 2.6rem); line-height: 1.3; max-width: 46rem; margin: 0 auto; }
+  .quote small { display: block; margin-top: 1.2rem; font-size: .78rem; letter-spacing: .24em; color: var(--gold); }
+
+  .day { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--ink); }
+  .day > div { padding: 1.6rem 1.5rem 2rem 0; border-bottom: 1px solid rgba(28,26,23,.15); }
+  .day > div + div { padding-left: 1.5rem; border-left: 1px solid rgba(28,26,23,.15); }
+  .day small { font-size: .75rem; letter-spacing: .22em; color: var(--mute); }
+  .day h3 { font-family: var(--serif); font-weight: 600; font-size: 1.6rem; line-height: 1.2; margin: .5rem 0 .3rem; }
+  .day p { color: var(--mute); margin-bottom: 1rem; }
+  .swatches { display: flex; gap: .5rem; margin-top: .4rem; }
+  .swatches i { width: 30px; height: 30px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(0,0,0,.12); }
+  .btn--ink { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .btn--line { color: var(--ink); border-color: rgba(28,26,23,.4); }
+  .btn--line:hover { background: var(--ink); color: var(--paper); }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5rem); }
+  .two .rsvp { margin: 0; }
+  .rsvp input:not([type=radio]) { background: transparent !important; border: 0 !important; border-bottom: 1px solid var(--ink) !important; border-radius: 0 !important; padding-left: 0 !important; }
+  .gift { border-top: 1px solid var(--ink); padding-top: 1.2rem; }
+  .gift strong { display: block; font-family: var(--serif); font-weight: 600; font-size: 2.2rem; margin: .2rem 0 1rem; }
+  .gift small { font-size: .75rem; letter-spacing: .22em; color: var(--mute); }
+  .made { border-top: 1px solid var(--ink); }
+  .made a:not(.btn) { color: var(--gold); }
+
+  @media (max-width: 860px) {
+    .cover { grid-template-columns: 1fr; }
+    .story li, .story li:nth-child(even) { grid-template-columns: 1fr; }
+    .story li:nth-child(even) .photo, .story li:nth-child(even) .story__text { order: initial; }
+    .story .photo { max-width: 260px; }
+    .day { grid-template-columns: 1fr; }
+    .day > div + div { padding-left: 0; border-left: 0; }
+    .two { grid-template-columns: 1fr; }
+    .mast__row span:nth-child(2) { display: none; }
+  }
+</style>
+</head>
+<body class="is-locked">
+<div class="bar"><a href="../../#work">← Ever After</a><span class="bar__label">Sample wedding website</span><a class="bar__cta" href="../../#book">Get one like this</a></div>
+
+<div class="doors" aria-label="Doors to the invitation">
+  <div class="door door--l"><span class="handle"></span></div>
+  <div class="door door--r"><span class="handle"></span></div>
+  <div class="doors__mono"><b>A &amp; K</b><small>You are cordially invited</small></div>
+  <button class="doors__btn">OPEN THE DOORS</button>
+</div>
+
+<main>
+  <header class="mast wrap">
+    <div class="mast__row"><span>THE WEDDING ISSUE</span><span>A LOVE STORY IN FOUR CHAPTERS</span><span>VOL. I · 2027</span></div>
+    <h1>ADJOA <em>&amp;</em> KOFI</h1>
+  </header>
+
+  <section class="wrap cover">
+    <div class="photo"><img src="../../assets/photos/couple-ivory.jpg" alt="Adjoa and Kofi"><span class="photo__mono">A &amp; K</span></div>
+    <div>
+      <p class="cover__kicker">COVER STORY</p>
+      <h2>Six years, many plates of jollof, and one very big question.</h2>
+      <p>Together with their families, Adjoa and Kofi invite you to celebrate their wedding: a day of vows, laughter and dancing at the heart of Accra.</p>
+      <dl class="facts">
+        <div><dt>DATE</dt><dd>Sunday, 20 June 2027</dd></div>
+        <div><dt>CEREMONY</dt><dd>10:00 a.m.</dd></div>
+        <div><dt>CITY</dt><dd>Accra, Ghana</dd></div>
+      </dl>
+      <div class="countdown">
+        <div><b data-cd="d">0</b><small>days</small></div><div><b data-cd="h">00</b><small>hours</small></div>
+        <div><b data-cd="m">00</b><small>mins</small></div><div><b data-cd="s">00</b><small>secs</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap chapter">
+    <div class="chapter__head"><h2>Our love story</h2><span>CHAPTERS I TO IV</span></div>
+    <ol class="story">
+      <li><span class="story__year">2019</span><div class="story__text"><h3>The jollof debate</h3><p>A friend's birthday dinner. Kofi insisted his mother's jollof was the best in Accra. Adjoa went to find out.</p></div><div class="photo"><img src="../../assets/photos/detail-1.jpg" alt=""><span class="photo__mono">I</span></div></li>
+      <li><span class="story__year">2021</span><div class="story__text"><h3>Cape Coast, together</h3><p>Their first trip away. A sunrise at the castle walls and a promise to see every region of Ghana together.</p></div><div class="photo"><img src="../../assets/photos/detail-2.jpg" alt=""><span class="photo__mono">II</span></div></li>
+      <li><span class="story__year">2025</span><div class="story__text"><h3>The question</h3><p>Sunset at Labadi, a ring hidden in a coconut and a very nervous Kofi. She said yes before he finished asking.</p></div><div class="photo"><img src="../../assets/photos/detail-rings.jpg" alt=""><span class="photo__mono">III</span></div></li>
+      <li><span class="story__year">2027</span><div class="story__text"><h3>Forever begins</h3><p>The next chapter is the one they want to write with you in the room.</p></div><div class="photo"><img src="../../assets/photos/detail-3.jpg" alt=""><span class="photo__mono">IV</span></div></li>
+    </ol>
+  </section>
+
+  <section class="quote">
+    <p>"I have found the one whom my soul loves."</p>
+    <small>SONG OF SOLOMON 3:4</small>
+  </section>
+
+  <section class="wrap chapter">
+    <div class="chapter__head"><h2>The day</h2><span>EVERYTHING YOU NEED TO KNOW</span></div>
+    <div class="day">
+      <div><small>THE CEREMONY</small><h3>Holy Trinity Cathedral</h3><p>10:00 a.m. Please be seated by 9:45.</p><button class="btn btn--line" data-toast="On a real site, this opens directions in Google Maps.">Directions</button></div>
+      <div><small>THE RECEPTION</small><h3>The Garden Pavilion</h3><p>2:00 p.m. until late.</p><button class="btn btn--line" data-toast="On a real site, this opens directions in Google Maps.">Directions</button></div>
+      <div><small>WHAT TO WEAR</small><h3>Elegant formal</h3><p>In ivory, champagne or gold.</p><div class="swatches"><i style="--c:#FFFDF8"></i><i style="--c:#E9CF92"></i><i style="--c:#B08A3E"></i></div></div>
+    </div>
+  </section>
+
+  <section class="wrap chapter two">
+    <div>
+      <div class="chapter__head" style="margin-bottom:1.5rem"><h2>RSVP</h2></div>
+      <p style="color:var(--mute)">Kindly reply by 20 May 2027.</p>
+      <form class="rsvp" novalidate style="margin-top:1.5rem">
+        <label for="n">Full name</label><input id="n" name="name" autocomplete="name" placeholder="Ama Owusu">
+        <fieldset><legend>Attending?</legend>
+          <label class="choice"><input type="radio" name="attend" value="yes" checked> With pleasure</label>
+          <label class="choice"><input type="radio" name="attend" value="no"> With regret</label></fieldset>
+        <p class="rsvp__error" role="alert"></p>
+        <button class="btn btn--ink" type="submit">Reply</button>
+        <p class="rsvp__done" role="status" style="color:var(--gold)"></p>
+      </form>
+    </div>
+    <div>
+      <div class="chapter__head" style="margin-bottom:1.5rem"><h2>Gifts</h2></div>
+      <p style="color:var(--mute)">Your presence is the gift. If you'd like to bless us further:</p>
+      <div class="gift" style="margin-top:1.5rem"><small>MOBILE MONEY (SAMPLE)</small><strong>024 000 0000</strong><button class="btn btn--line" data-copy="0240000000">Copy number</button></div>
+      <p style="margin-top:2rem"><button class="btn btn--ink" id="ics">Save the date</button></p>
+    </div>
+  </section>
+
+  <div class="made wrap">
+    <p>A sample wedding website by <a href="../../">Ever After by TeamAfot</a>. Adjoa, Kofi and every detail here are made up.</p>
+    <a class="btn btn--ink" href="https://wa.me/233245502417?text=Hello%20Ever%20After%2C%20I%20loved%20the%20Adjoa%20%26%20Kofi%20sample.%20I%27d%20like%20a%20site%20like%20it." target="_blank" rel="noopener">I want one like this</a>
+  </div>
+</main>
+
+<div class="toast" role="status" aria-live="polite"></div>
+<canvas class="fx" aria-hidden="true"></canvas>
+<script src="../base.js"></script>
+<script>
+  EA.countdown("2027-06-20T10:00:00");
+  EA.rsvp(document.querySelector(".rsvp"), "Adjoa and Kofi");
+  EA.calendar(document.getElementById("ics"), { title: "Adjoa & Kofi's wedding", date: "2027-06-20T10:00:00", location: "Holy Trinity Cathedral, Accra", file: "adjoa-kofi-wedding" });
+  const doors = document.querySelector(".doors");
+  document.querySelector(".doors__btn").addEventListener("click", () => {
+    doors.classList.add("is-opening");
+    document.body.classList.remove("is-locked");
+    setTimeout(() => EA.shower(["#E3CB92", "#FFFFFF", "#F3ECDF"], { count: 70 }), 500);
+    setTimeout(() => doors.classList.add("is-done"), 1700);
+  });
+</script>
+</body>
+</html>

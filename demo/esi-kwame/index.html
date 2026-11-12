@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Esi &amp; Kwame | Sample wedding website | Ever After</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../base.css">
+<style>
+  :root { --night: #1A0C12; --wine: #5B1F33; --gold: #D9B36A; --gold-soft: #F3DDA6; --ivory: #FBF4E8; --mute: #C9B3A6; --accent: #D9B36A; --field: rgba(255,255,255,.06); --field-line: rgba(217,179,106,.35);
+    --foil: linear-gradient(100deg, #B88A44 0%, #E9CF92 22%, #FFF1CF 38%, #D4AE66 55%, #F3DDA6 72%, #B88A44 100%);
+    --photo-fallback: radial-gradient(circle at 50% 30%, #7A2C45, #2A0F19 80%); }
+  body { background: var(--night); color: var(--ivory); }
+  .foil { background: var(--foil); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: sheen 6s ease-in-out infinite; }
+  @keyframes sheen { 50% { background-position: 100% 0; } }
+
+  /* Opening: envelope */
+  .open { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; background: radial-gradient(50rem 30rem at 50% 45%, #4A1A2B, var(--night) 75%); transition: opacity 1s ease .6s, visibility 1s ease .6s; }
+  .open.is-done { opacity: 0; visibility: hidden; }
+  .env { position: relative; width: min(86vw, 380px); aspect-ratio: 1.55; perspective: 1200px; }
+  .env__back { position: absolute; inset: 0; background: linear-gradient(160deg, #6A2840, #3D1221); border-radius: 6px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); }
+  .env__card { position: absolute; left: 6%; right: 6%; top: 8%; bottom: 8%; background: var(--ivory); border-radius: 3px; display: grid; place-items: center; text-align: center; color: var(--wine); transition: transform 1.1s var(--ease) .55s; }
+  .env__card p { font-family: var(--script); font-size: clamp(1.9rem, 6vw, 2.4rem); line-height: 1.1; }
+  .env__card small { display: block; font-family: var(--serif); font-style: italic; font-size: .95rem; color: #7A5C60; }
+  .env__front { position: absolute; inset: 0; border-radius: 6px; z-index: 2; pointer-events: none; background: linear-gradient(160deg, #6A2840, #4E1A2B); clip-path: polygon(0 0, 50% 56%, 100% 0, 100% 100%, 0 100%); }
+  .env__front::after { content: ""; position: absolute; inset: 0; background: linear-gradient(to top right, transparent 49.7%, rgba(255,255,255,.08) 50%, transparent 50.6%) left bottom / 50% 100% no-repeat, linear-gradient(to top left, transparent 49.7%, rgba(255,255,255,.08) 50%, transparent 50.6%) right bottom / 50% 100% no-repeat; }
+  .env__flap { position: absolute; left: 0; right: 0; top: 0; height: 58%; transform-origin: top; transform-style: preserve-3d; transition: transform .8s var(--ease); z-index: 3; }
+  .env__flap::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, #7A2C45, #4E1A2B); clip-path: polygon(0 0, 100% 0, 50% 100%); border-radius: 6px 6px 0 0; }
+  .seal { position: absolute; left: 50%; top: 58%; transform: translate(-50%, -50%); z-index: 4; width: 92px; height: 92px; border: 0; padding: 0; cursor: pointer; background: none; }
+  .seal i { position: absolute; inset: 0; background: radial-gradient(circle at 34% 28%, #F3DDA6, #C59A52 45%, #8A6424 85%); box-shadow: 0 10px 24px -8px rgba(0,0,0,.7), inset 0 -5px 10px rgba(0,0,0,.25); transition: transform .7s var(--ease), opacity .7s; }
+  .seal i:first-child { border-radius: 50%; clip-path: polygon(0 0, 54% 0, 44% 38%, 56% 62%, 46% 100%, 0 100%); }
+  .seal i:last-of-type { border-radius: 50%; clip-path: polygon(54% 0, 100% 0, 100% 100%, 46% 100%, 56% 62%, 44% 38%); }
+  .seal span { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--script); font-size: 1.9rem; color: #5B1F33; transition: opacity .3s; }
+  .open__hint { position: absolute; bottom: 12%; left: 0; right: 0; text-align: center; font-size: .85rem; letter-spacing: .14em; color: var(--mute); animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: .4; } }
+  .open.is-opening .seal i:first-child { transform: translate(-36px, 18px) rotate(-28deg); opacity: 0; }
+  .open.is-opening .seal i:last-of-type { transform: translate(36px, 22px) rotate(30deg); opacity: 0; }
+  .open.is-opening .seal span { opacity: 0; }
+  .open.is-opening .env__flap { transform: rotateX(180deg); z-index: 1; transition-delay: .25s; }
+  .open.is-opening .env__card { transform: translateY(-62%); }
+  .open.is-opening .open__hint { opacity: 0; animation: none; }
+
+  /* Site */
+  .hero { min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(2rem, 6vw, 6rem); padding: 6rem clamp(1.5rem, 6vw, 6rem) 4rem; background: radial-gradient(40rem 30rem at 25% 50%, rgba(122,44,69,.45), transparent 70%), var(--night); }
+  .arch { aspect-ratio: 3 / 4; border-radius: 999px 999px 8px 8px; box-shadow: 0 0 0 1px rgba(217,179,106,.5), 0 0 0 10px var(--night), 0 0 0 11px rgba(217,179,106,.25); max-width: 420px; width: 100%; justify-self: end; }
+  .hero__text { text-align: left; }
+  .hero__kicker { font-family: var(--serif); font-style: italic; font-size: 1.25rem; color: var(--mute); }
+  .hero h1 { font-family: var(--script); font-weight: 400; font-size: clamp(3.8rem, 9vw, 7rem); line-height: 1.05; margin: .4rem 0 .2rem; }
+  .hero h1 span { display: inline-block; padding: 0 .12em .12em; }
+  .hero__date { font-family: var(--serif); font-weight: 600; font-size: 1.45rem; letter-spacing: .04em; color: var(--gold-soft); margin-top: 1rem; }
+  .hero__city { font-size: .82rem; letter-spacing: .24em; color: var(--mute); }
+  .hero .countdown { margin: 2rem 0 0; }
+  .hero .countdown div { border: 1px solid rgba(217,179,106,.3); padding: .6rem 0; }
+  .hero .countdown b { color: var(--gold-soft); }
+
+  section.s { padding: clamp(4.5rem, 10vw, 7rem) 1.5rem; text-align: center; }
+  .s h2 { font-family: var(--script); font-weight: 400; font-size: clamp(2.8rem, 8vw, 4rem); line-height: 1.15; margin-bottom: 1rem; }
+  .s .lead { max-width: 34rem; margin: 0 auto; color: var(--mute); }
+  .s--wine { background: linear-gradient(160deg, #4A1A2B, #2A0F19); }
+
+  .evening { list-style: none; padding: 0; margin: 3rem auto 0; max-width: 34rem; position: relative; text-align: left; }
+  .evening::before { content: ""; position: absolute; left: 6.2rem; top: .4rem; bottom: .4rem; width: 1px; background: linear-gradient(var(--gold), rgba(217,179,106,.1)); }
+  .evening li { display: grid; grid-template-columns: 5.4rem 1fr; gap: 1.6rem; padding: 0 0 2.2rem; position: relative; }
+  .evening li::after { content: ""; position: absolute; left: 6.2rem; top: .55rem; width: 9px; height: 9px; margin-left: -4px; transform: rotate(45deg); background: var(--gold); }
+  .evening time { font-family: var(--serif); font-weight: 600; font-size: 1.2rem; color: var(--gold-soft); text-align: right; }
+  .evening h3 { font-family: var(--serif); font-weight: 500; font-size: 1.45rem; line-height: 1.2; }
+  .evening p { color: var(--mute); font-size: .98rem; }
+
+  .venues { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; max-width: 50rem; margin: 2.5rem auto 0; }
+  .venue { padding: 2.2rem 1.6rem; border: 1px solid rgba(217,179,106,.35); background: rgba(255,255,255,.03); }
+  .venue small { letter-spacing: .2em; font-size: .75rem; color: var(--gold); }
+  .venue h3 { font-family: var(--serif); font-weight: 500; font-size: 1.7rem; margin: .5rem 0 .2rem; }
+  .venue p { color: var(--mute); margin-bottom: 1.3rem; }
+  .btn--gold { background: var(--foil); background-size: 200% 100%; color: var(--night); border-color: transparent; }
+  .btn--line { color: var(--gold-soft); border-color: rgba(217,179,106,.5); }
+
+  .dress { display: flex; justify-content: center; gap: 1.5rem; margin-top: 2rem; flex-wrap: wrap; }
+  .dress div { display: grid; justify-items: center; gap: .5rem; font-size: .85rem; color: var(--mute); }
+  .dress i { width: 60px; height: 60px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 4px var(--night), 0 0 0 5px rgba(217,179,106,.5); }
+
+  .gift { max-width: 22rem; margin: 2rem auto 0; padding: 2rem; border: 1px solid rgba(217,179,106,.35); }
+  .gift strong { display: block; font-family: var(--serif); font-weight: 600; font-size: 2rem; letter-spacing: .04em; color: var(--gold-soft); margin: .2rem 0 1.2rem; }
+  .gift small { letter-spacing: .18em; font-size: .75rem; color: var(--mute); }
+  .made a:not(.btn) { color: var(--gold); }
+
+  @media (max-width: 820px) {
+    .hero { grid-template-columns: 1fr; text-align: center; padding-top: 5rem; }
+    .arch { justify-self: center; max-width: 280px; }
+    .hero__text { text-align: center; }
+    .hero .countdown { margin: 2rem auto 0; }
+    .venues { grid-template-columns: 1fr; }
+    .evening::before, .evening li::after { left: 5.2rem; }
+    .evening li { grid-template-columns: 4.4rem 1fr; }
+  }
+</style>
+</head>
+<body class="is-locked">
+<div class="bar"><a href="../../#work">← Ever After</a><span class="bar__label">Sample wedding website</span><a class="bar__cta" href="../../#book">Get one like this</a></div>
+
+<div class="open" aria-label="Invitation envelope">
+  <div class="env">
+    <div class="env__back"></div>
+    <div class="env__card"><div><small>The wedding of</small><p>Esi &amp; Kwame</p></div></div>
+    <div class="env__front"></div>
+    <div class="env__flap"></div>
+    <button class="seal" aria-label="Break the seal to open the invitation"><i></i><i></i><span>E&amp;K</span></button>
+  </div>
+  <p class="open__hint">Tap the seal to open</p>
+</div>
+
+<main>
+  <header class="hero">
+    <div class="photo arch"><img src="../../assets/photos/couple-night.jpg" alt="Esi and Kwame"><span class="photo__mono">E &amp; K</span></div>
+    <div class="hero__text">
+      <p class="hero__kicker">Together with their families</p>
+      <h1><span class="foil">Esi &amp; Kwame</span></h1>
+      <p class="hero__kicker">request the pleasure of your company</p>
+      <p class="hero__date">Saturday, 13 March 2027</p>
+      <p class="hero__city">ACCRA, GHANA</p>
+      <div class="countdown">
+        <div><b data-cd="d">0</b><small>days</small></div><div><b data-cd="h">00</b><small>hours</small></div>
+        <div><b data-cd="m">00</b><small>mins</small></div><div><b data-cd="s">00</b><small>secs</small></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="s s--wine">
+    <h2 class="foil">The evening</h2>
+    <p class="lead">A black-tie celebration from golden hour until the last dance.</p>
+    <ol class="evening">
+      <li><time>4:00</time><div><h3>The vows</h3><p>Ceremony in the chapel garden</p></div></li>
+      <li><time>5:30</time><div><h3>Champagne hour</h3><p>Cocktails, canapés and photographs</p></div></li>
+      <li><time>7:00</time><div><h3>Dinner is served</h3><p>A three-course dinner in the ballroom</p></div></li>
+      <li><time>9:00</time><div><h3>First dance</h3><p>And then, everyone to the dance floor</p></div></li>
+    </ol>
+  </section>
+
+  <section class="s">
+    <h2 class="foil">Where to find us</h2>
+    <div class="venues">
+      <div class="venue"><small>CEREMONY</small><h3>The Chapel Garden</h3><p>Airport Residential Area, Accra</p><button class="btn btn--line" data-toast="On a real site, this opens directions in Google Maps.">Get directions</button></div>
+      <div class="venue"><small>RECEPTION</small><h3>The Grand Ballroom</h3><p>Ridge, Accra</p><button class="btn btn--line" data-toast="On a real site, this opens directions in Google Maps.">Get directions</button></div>
+    </div>
+  </section>
+
+  <section class="s s--wine">
+    <h2 class="foil">Black tie</h2>
+    <p class="lead">Gentlemen in black tie, ladies in floor-length gowns. Our colours, if you'd like to match:</p>
+    <div class="dress"><div><i style="--c:#5B1F33"></i>Wine</div><div><i style="--c:#F1E2C6"></i>Champagne</div><div><i style="--c:#C59A52"></i>Gold</div><div><i style="--c:#0E0E10"></i>Black</div></div>
+  </section>
+
+  <section class="s">
+    <h2 class="foil">Kindly reply</h2>
+    <p class="lead">Please respond by 13 February 2027.</p>
+    <form class="rsvp" novalidate>
+      <label for="n">Your full name</label><input id="n" name="name" autocomplete="name" placeholder="Ama Owusu">
+      <fieldset><legend>Will you attend?</legend>
+        <label class="choice"><input type="radio" name="attend" value="yes" checked> Joyfully accept</label>
+        <label class="choice"><input type="radio" name="attend" value="no"> Regretfully decline</label></fieldset>
+      <p class="rsvp__error" role="alert"></p>
+      <button class="btn btn--gold" type="submit">Send my reply</button>
+      <p class="rsvp__done" role="status" style="color:var(--gold-soft)"></p>
+    </form>
+  </section>
+
+  <section class="s s--wine">
+    <h2 class="foil">Gifts</h2>
+    <p class="lead">Your presence is our present. If you wish to bless us, you can do so here.</p>
+    <div class="gift"><small>MOBILE MONEY (SAMPLE)</small><strong>024 000 0000</strong><button class="btn btn--line" data-copy="0240000000">Copy number</button></div>
+    <p style="margin-top:2.5rem"><button class="btn btn--gold" id="ics">Save the date</button></p>
+  </section>
+
+  <div class="made">
+    <p>A sample wedding website by <a href="../../">Ever After by TeamAfot</a>. Esi, Kwame and every detail here are made up.</p>
+    <a class="btn btn--gold" href="https://wa.me/233245502417?text=Hello%20Ever%20After%2C%20I%20loved%20the%20Esi%20%26%20Kwame%20sample.%20I%27d%20like%20a%20site%20like%20it." target="_blank" rel="noopener">I want one like this</a>
+  </div>
+</main>
+
+<div class="toast" role="status" aria-live="polite"></div>
+<canvas class="fx" aria-hidden="true"></canvas>
+<script src="../base.js"></script>
+<script>
+  EA.countdown("2027-03-13T16:00:00");
+  EA.rsvp(document.querySelector(".rsvp"), "Esi and Kwame");
+  EA.calendar(document.getElementById("ics"), { title: "Esi & Kwame's wedding", date: "2027-03-13T16:00:00", location: "The Chapel Garden, Accra", file: "esi-kwame-wedding" });
+  const open = document.querySelector(".open");
+  document.querySelector(".seal").addEventListener("click", () => {
+    open.classList.add("is-opening");
+    setTimeout(() => { open.classList.add("is-done"); document.body.classList.remove("is-locked"); EA.shower(["#F3DDA6", "#D9B36A", "#FFF1CF"], { shape: "flake", count: 110 }); }, 1500);
+    setTimeout(() => open.remove(), 2800);
+  });
+</script>
+</body>
+</html>

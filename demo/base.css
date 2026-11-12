@@ -1,0 +1,63 @@
+/* Shared pieces for the Ever After sample wedding sites */
+@font-face { font-family: "Pinyon Script"; src: url("../assets/fonts/pinyon-script-latin-400-normal.woff2") format("woff2"); font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../assets/fonts/cormorant-garamond-latin-600-normal.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("../assets/fonts/jost-latin-300-normal.woff2") format("woff2"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("../assets/fonts/jost-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Jost"; src: url("../assets/fonts/jost-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+
+:root { --script: "Pinyon Script", cursive; --serif: "Cormorant Garamond", Georgia, serif; --sans: "Jost", system-ui, sans-serif; --ease: cubic-bezier(.22,.61,.36,1); }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; font-family: var(--sans); font-weight: 300; font-size: 1.0625rem; line-height: 1.75; -webkit-font-smoothing: antialiased; }
+body.is-locked { overflow: hidden; }
+h1, h2, h3, p { margin: 0; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+button { font: inherit; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 4px; }
+
+/* Sample bar */
+.bar { position: fixed; top: 0; left: 0; right: 0; z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .5rem 1rem; background: rgba(28, 14, 20, .9); color: #FBF6EF; font-size: .8rem; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+.bar a { text-decoration: none; color: #E9CF92; }
+.bar__label { opacity: .8; letter-spacing: .04em; }
+.bar__cta { border: 1px solid rgba(233,207,146,.5); padding: .28rem .8rem; border-radius: 999px; }
+@media (max-width: 600px) { .bar__label { display: none; } }
+
+/* Photo slots: show a photo if it exists, otherwise an elegant fill */
+.photo { position: relative; overflow: hidden; background: var(--photo-fallback, linear-gradient(135deg, #E9D9C3, #C9AE86)); }
+.photo img { width: 100%; height: 100%; object-fit: cover; }
+.photo img.is-missing { display: none; }
+.photo__mono { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--script); font-size: clamp(2.4rem, 6vw, 3.4rem); color: rgba(255,255,255,.75); pointer-events: none; }
+.photo img:not(.is-missing) + .photo__mono { display: none; }
+
+/* Shared form + buttons */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; font: 500 .9rem/1 var(--sans); letter-spacing: .05em; padding: .95rem 1.5rem; border-radius: 999px; cursor: pointer; text-decoration: none; border: 1px solid currentColor; background: transparent; color: inherit; transition: transform .25s var(--ease), background-color .25s, color .25s; }
+.btn:active { transform: translateY(1px); }
+.rsvp { display: grid; gap: .5rem; text-align: left; max-width: 27rem; margin: 2rem auto 0; }
+.rsvp label, .rsvp legend { font-weight: 500; font-size: .9rem; }
+.rsvp input:not([type=radio]):not([type=checkbox]), .rsvp select { font: 400 1rem var(--sans); color: inherit; background: var(--field, rgba(255,255,255,.6)); border: 1px solid var(--field-line, rgba(0,0,0,.15)); border-radius: 10px; padding: .8rem 1rem; width: 100%; }
+.rsvp fieldset { border: 0; padding: 0; margin: .7rem 0; display: grid; gap: .35rem; }
+.rsvp .choice { font-weight: 400; display: flex; align-items: center; gap: .6rem; }
+.rsvp .choice input { width: 18px; height: 18px; accent-color: var(--accent, currentColor); }
+.rsvp__error { min-height: 1.3em; color: #C0483A; font-size: .88rem; }
+.rsvp__done { font-family: var(--serif); font-style: italic; font-size: 1.15rem; }
+.rsvp .btn { justify-self: start; }
+
+.countdown { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; max-width: 26rem; margin: 0 auto; text-align: center; }
+.countdown b { display: block; font-family: var(--serif); font-weight: 600; font-size: 2rem; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.countdown small { font-size: .72rem; letter-spacing: .1em; opacity: .75; }
+
+.made { text-align: center; padding: 3rem 1.5rem 3.5rem; font-size: .9rem; display: grid; gap: 1.1rem; justify-items: center; }
+.made p { max-width: 30rem; opacity: .85; }
+
+.toast { position: fixed; left: 50%; bottom: 1.5rem; transform: translate(-50%, 160%); visibility: hidden; z-index: 70; background: #1C0E14; color: #FBF6EF; font-size: .9rem; padding: .8rem 1.2rem; border-radius: 12px; max-width: calc(100% - 2rem); text-align: center; transition: transform .4s var(--ease), visibility .4s; box-shadow: 0 16px 40px -12px rgba(0,0,0,.5); }
+.toast.is-on { transform: translate(-50%, 0); visibility: visible; }
+.fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 55; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}

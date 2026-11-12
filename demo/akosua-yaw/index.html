@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Akosua &amp; Yaw | Sample wedding website | Ever After</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../base.css">
+<style>
+  :root { --green: #173A2A; --green-2: #1F4A35; --gold: #E0A82E; --gold-soft: #F0D48E; --red: #A8322D; --cream: #F7F1E3; --sand: #EFE4C8; --ink: #1E2E25; --mute: #5E6B5F; --accent: #1F4A35;
+    --photo-fallback: radial-gradient(circle at 50% 35%, #2A5C44, #12301F 80%);
+    --k1: repeating-linear-gradient(90deg, #E0A82E 0 26px, #1F6B3A 26px 40px, #A8322D 40px 46px, #1F6B3A 46px 60px, #111 60px 64px);
+    --k2: repeating-linear-gradient(90deg, #1F6B3A 0 18px, #E0A82E 18px 22px, #1F6B3A 22px 40px, #A8322D 40px 58px, #E0A82E 58px 62px, #A8322D 62px 80px);
+    --k3: repeating-linear-gradient(90deg, #A8322D 0 10px, #E0A82E 10px 34px, #111 34px 38px, #E0A82E 38px 62px);
+    --kente-border: repeating-linear-gradient(90deg, #E0A82E 0 14px, #1F6B3A 14px 24px, #A8322D 24px 29px, #1F6B3A 29px 39px, #111 39px 42px); }
+  body { background: var(--cream); color: var(--ink); }
+
+  /* Opening: kente weave */
+  .weave { position: fixed; inset: 0; z-index: 50; display: grid; grid-template-rows: repeat(8, 1fr); background: #0E1F16; overflow: hidden; }
+  .weave .band { position: relative; transform: translateX(-102%); animation: in .9s cubic-bezier(.7,0,.3,1) forwards; box-shadow: inset 0 -2px 0 rgba(0,0,0,.25), inset 0 2px 0 rgba(255,255,255,.08); }
+  .weave .band::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg, rgba(0,0,0,.12) 0 2px, transparent 2px 5px); }
+  .weave .band:nth-child(even) { transform: translateX(102%); }
+  .weave .band:nth-child(3n+1) { background: var(--k1); }
+  .weave .band:nth-child(3n+2) { background: var(--k2); }
+  .weave .band:nth-child(3n) { background: var(--k3); }
+  .weave .band:nth-child(1) { animation-delay: .05s; } .weave .band:nth-child(2) { animation-delay: .15s; }
+  .weave .band:nth-child(3) { animation-delay: .25s; } .weave .band:nth-child(4) { animation-delay: .35s; }
+  .weave .band:nth-child(5) { animation-delay: .45s; } .weave .band:nth-child(6) { animation-delay: .55s; }
+  .weave .band:nth-child(7) { animation-delay: .65s; } .weave .band:nth-child(8) { animation-delay: .75s; }
+  @keyframes in { to { transform: none; } }
+  .medal { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%) scale(.6); opacity: 0; animation: medal .8s var(--ease) 1.4s forwards; width: min(84vw, 360px); aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 35%, #2A5C44, #12301F 80%); box-shadow: 0 0 0 6px #E0A82E, 0 0 0 9px #12301F, 0 0 0 11px #E0A82E, 0 30px 80px -10px rgba(0,0,0,.7); display: grid; place-items: center; text-align: center; color: var(--gold-soft); padding: 2rem; }
+  @keyframes medal { to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
+  .medal svg { width: 54px; height: 54px; margin: 0 auto .6rem; }
+  .medal b { display: block; font-family: var(--script); font-weight: 400; font-size: clamp(2.3rem, 8vw, 2.9rem); line-height: 1.1; }
+  .medal small { display: block; font-family: var(--serif); font-style: italic; font-size: 1rem; opacity: .85; margin: .3rem 0 1.2rem; }
+  .medal button { border: 0; background: var(--gold); color: #12301F; font: 500 .8rem/1 var(--sans); letter-spacing: .16em; padding: .9rem 1.3rem; border-radius: 999px; cursor: pointer; }
+  .weave.is-leaving .band { animation: out .8s cubic-bezier(.7,0,.3,1) forwards; }
+  .weave.is-leaving .band:nth-child(odd) { --to: 102%; } .weave.is-leaving .band:nth-child(even) { --to: -102%; }
+  .weave.is-leaving .band:nth-child(n) { animation-delay: calc(var(--i) * .06s); }
+  @keyframes out { from { transform: none; } to { transform: translateX(var(--to)); } }
+  .weave.is-leaving .medal { animation: medalout .6s var(--ease) forwards; }
+  @keyframes medalout { from { transform: translate(-50%, -50%) scale(1); opacity: 1; } to { transform: translate(-50%, -50%) scale(1.3); opacity: 0; } }
+  .weave.is-leaving { background: transparent; transition: background-color .8s .3s; }
+
+  /* Page */
+  .hero { position: relative; color: var(--cream); background: radial-gradient(50rem 30rem at 50% 20%, #2A5C44, var(--green) 70%); padding: 5.5rem 1.5rem 0; text-align: center; overflow: hidden; }
+  .hero::after { content: ""; display: block; height: 16px; background: var(--kente-border); margin: 0 -1.5rem; }
+  .hero__fam { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: rgba(247,241,227,.8); }
+  .hero h1 { font-family: var(--script); font-weight: 400; font-size: clamp(3.6rem, 12vw, 7.5rem); line-height: 1.1; color: var(--gold-soft); margin: .4rem 0 .2rem; }
+  .hero h1 span { color: var(--cream); font-size: .7em; }
+  .hero__tag { font-family: var(--serif); font-weight: 500; font-size: clamp(1.3rem, 3vw, 1.8rem); letter-spacing: .02em; }
+  .hero__dates { font-size: .82rem; letter-spacing: .22em; color: var(--gold); margin-top: .6rem; }
+  .hero .countdown { margin: 2rem auto 2.5rem; }
+  .hero .countdown div { border-top: 1px solid rgba(240,212,142,.35); border-bottom: 1px solid rgba(240,212,142,.35); padding: .6rem 0; }
+  .hero .countdown b { color: var(--gold-soft); }
+  .banner { max-width: 980px; margin: 0 auto; aspect-ratio: 16 / 7; border: 6px solid var(--gold); border-bottom: 0; }
+
+  .s { padding: clamp(4rem, 9vw, 6.5rem) 1.5rem; text-align: center; }
+  .s h2 { font-family: var(--script); font-weight: 400; font-size: clamp(2.8rem, 8vw, 4rem); line-height: 1.15; color: var(--green-2); margin-bottom: .8rem; }
+  .s .lead { max-width: 36rem; margin: 0 auto; color: var(--mute); }
+  .s--sand { background: var(--sand); }
+
+  .akwaaba { font-family: var(--serif); font-size: clamp(1.3rem, 3vw, 1.6rem); line-height: 1.6; max-width: 40rem; margin: 0 auto; }
+  .families { display: flex; justify-content: center; gap: clamp(1.5rem, 5vw, 4rem); margin-top: 2.2rem; flex-wrap: wrap; }
+  .families div { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; }
+  .families small { display: block; font-family: var(--sans); font-weight: 400; font-size: .75rem; letter-spacing: .2em; color: var(--mute); }
+
+  .tabs { display: inline-flex; gap: .4rem; padding: .4rem; background: var(--cream); border-radius: 999px; margin: 1.6rem auto 2.5rem; box-shadow: inset 0 0 0 1px rgba(31,74,53,.2); flex-wrap: wrap; justify-content: center; }
+  .tab { border: 0; background: transparent; padding: .8rem 1.3rem; border-radius: 999px; cursor: pointer; font: 500 .9rem/1.2 var(--sans); color: var(--mute); }
+  .tab small { display: block; font-size: .7rem; letter-spacing: .14em; opacity: .8; }
+  .tab[aria-selected="true"] { background: var(--green-2); color: var(--cream); }
+  .panel { max-width: 46rem; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.2fr; gap: 2rem; text-align: left; animation: fadein .5s var(--ease); }
+  @keyframes fadein { from { opacity: 0; transform: translateY(8px); } }
+  .panel[hidden] { display: none; }
+  .card { background: var(--cream); padding: 2rem 1.75rem; border-top: 6px solid transparent; border-image: var(--kente-border) 1; }
+  .card small { font-size: .74rem; letter-spacing: .2em; color: var(--mute); }
+  .card h3 { font-family: var(--serif); font-weight: 600; font-size: 1.7rem; line-height: 1.2; margin: .4rem 0; color: var(--green-2); }
+  .card p { color: var(--mute); }
+  .card .btn { margin-top: 1.2rem; color: var(--green-2); }
+  .prog { list-style: none; margin: 0; padding: 0; }
+  .prog li { display: grid; grid-template-columns: 5rem 1fr; gap: 1rem; padding: .85rem 0; border-bottom: 1px dashed rgba(31,74,53,.25); }
+  .prog time { font-family: var(--serif); font-weight: 600; font-size: 1.15rem; color: #9A6E14; }
+  .dress { display: flex; align-items: center; gap: .5rem; margin-top: 1rem; flex-wrap: wrap; font-size: .9rem; color: var(--mute); }
+  .dress i { width: 26px; height: 26px; border-radius: 50%; background: var(--c); box-shadow: inset 0 0 0 1px rgba(0,0,0,.15); }
+
+  .gallery { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: .8rem; max-width: 980px; margin: 2.2rem auto 0; }
+  .gallery .photo { aspect-ratio: 3 / 4; }
+  .gallery .photo:first-child { grid-row: span 2; aspect-ratio: auto; }
+
+  .rsvp .choice input[type=checkbox] { accent-color: var(--green-2); }
+  .btn--green { background: var(--green-2); color: var(--cream); border-color: var(--green-2); }
+  .gift { max-width: 22rem; margin: 2rem auto 0; background: var(--cream); padding: 2rem; border-top: 6px solid transparent; border-image: var(--kente-border) 1; }
+  .gift strong { display: block; font-family: var(--serif); font-weight: 600; font-size: 2rem; margin: .2rem 0 1rem; color: var(--green-2); }
+  .gift small { font-size: .74rem; letter-spacing: .2em; color: var(--mute); }
+  .made { background: var(--green); color: var(--cream); }
+  .made a:not(.btn) { color: var(--gold-soft); }
+  .made .btn { background: var(--gold); color: #12301F; border-color: var(--gold); }
+
+  @media (max-width: 760px) {
+    .panel { grid-template-columns: 1fr; }
+    .gallery { grid-template-columns: 1fr 1fr; }
+    .gallery .photo:first-child { grid-column: span 2; grid-row: auto; aspect-ratio: 4 / 3; }
+  }
+</style>
+</head>
+<body class="is-locked">
+<div class="bar"><a href="../../#work">← Ever After</a><span class="bar__label">Sample wedding website</span><a class="bar__cta" href="../../#book">Get one like this</a></div>
+
+<div class="weave" aria-label="Invitation cover">
+  <div class="band" style="--i:0"></div><div class="band" style="--i:1"></div><div class="band" style="--i:2"></div><div class="band" style="--i:3"></div>
+  <div class="band" style="--i:4"></div><div class="band" style="--i:5"></div><div class="band" style="--i:6"></div><div class="band" style="--i:7"></div>
+  <div class="medal">
+    <div>
+      <svg viewBox="0 0 54 54" aria-hidden="true"><circle cx="27" cy="27" r="25" fill="none" stroke="#E0A82E" stroke-width="2"/><path d="M27 41s-12-7.5-12-16a6.5 6.5 0 0 1 12-3.4A6.5 6.5 0 0 1 39 25c0 8.5-12 16-12 16z" fill="#E0A82E"/></svg>
+      <b>Akosua &amp; Yaw</b>
+      <small>Two days, two traditions, one love</small>
+      <button class="medal__go">ENTER THE CELEBRATION</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <header class="hero">
+    <p class="hero__fam">With the blessing of both families</p>
+    <h1>Akosua <span>&amp;</span> Yaw</h1>
+    <p class="hero__tag">Two days. Two traditions. One love.</p>
+    <p class="hero__dates">10 &amp; 11 SEPTEMBER 2027 · KUMASI</p>
+    <div class="countdown">
+      <div><b data-cd="d">0</b><small>days</small></div><div><b data-cd="h">00</b><small>hours</small></div>
+      <div><b data-cd="m">00</b><small>mins</small></div><div><b data-cd="s">00</b><small>secs</small></div>
+    </div>
+    <div class="photo banner"><img src="../../assets/photos/traditional-1.jpg" alt="Akosua and Yaw in kente"><span class="photo__mono">Akosua &amp; Yaw</span></div>
+  </header>
+
+  <section class="s">
+    <h2>Akwaaba</h2>
+    <p class="akwaaba">Akosua and Yaw grew up two streets apart in Kumasi but only truly met at university. Now they come home to celebrate with a traditional engagement and a white wedding, and they want you there for both.</p>
+    <div class="families">
+      <div><small>THE FAMILY OF</small>Mr &amp; Mrs Asante</div>
+      <div><small>AND THE FAMILY OF</small>Mr &amp; Mrs Boateng</div>
+    </div>
+  </section>
+
+  <section class="s s--sand">
+    <h2>The celebration</h2>
+    <p class="lead">Choose a day to see the programme.</p>
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="t1" aria-controls="p1" aria-selected="true"><small>FRIDAY · DAY ONE</small>Traditional engagement</button>
+      <button class="tab" role="tab" id="t2" aria-controls="p2" aria-selected="false"><small>SATURDAY · DAY TWO</small>White wedding</button>
+    </div>
+    <div class="panel" id="p1" role="tabpanel" aria-labelledby="t1">
+      <div class="card"><small>FRIDAY, 10 SEPTEMBER</small><h3>The Family House, Ahodwo</h3><p>Kumasi</p>
+        <div class="dress"><i style="--c:#E0A82E"></i><i style="--c:#1F6B3A"></i><i style="--c:#A8322D"></i> Kente and traditional wear</div>
+        <button class="btn" data-toast="On a real site, this opens directions in Google Maps.">Get directions</button></div>
+      <ol class="prog">
+        <li><time>9:00</time><span>Arrival and welcome of the groom's family</span></li>
+        <li><time>10:00</time><span>Knocking and presentation of items</span></li>
+        <li><time>11:30</time><span>Libation, blessings and acceptance</span></li>
+        <li><time>12:30</time><span>The bride is presented</span></li>
+        <li><time>1:30</time><span>Feast, drumming and dancing</span></li>
+      </ol>
+    </div>
+    <div class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
+      <div class="card"><small>SATURDAY, 11 SEPTEMBER</small><h3>Royal Heritage Gardens</h3><p>Kumasi</p>
+        <div class="dress"><i style="--c:#1F4A35"></i><i style="--c:#F7F1E3"></i><i style="--c:#C59A3A"></i> Formal, in emerald, ivory or gold</div>
+        <button class="btn" data-toast="On a real site, this opens directions in Google Maps.">Get directions</button></div>
+      <ol class="prog">
+        <li><time>1:00</time><span>Guests seated in the garden</span></li>
+        <li><time>1:30</time><span>The ceremony and exchange of vows</span></li>
+        <li><time>3:00</time><span>Photographs and cocktails</span></li>
+        <li><time>4:30</time><span>Reception, toasts and dinner</span></li>
+        <li><time>7:00</time><span>First dance, then the party begins</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="s">
+    <h2>Moments</h2>
+    <p class="lead">A few of our favourite memories so far.</p>
+    <div class="gallery">
+      <div class="photo"><img src="../../assets/photos/traditional-2.jpg" alt=""><span class="photo__mono">A &amp; Y</span></div>
+      <div class="photo"><img src="../../assets/photos/couple-1.jpg" alt=""><span class="photo__mono">2019</span></div>
+      <div class="photo"><img src="../../assets/photos/detail-rings.jpg" alt=""><span class="photo__mono">2024</span></div>
+      <div class="photo"><img src="../../assets/photos/couple-2.jpg" alt=""><span class="photo__mono">2025</span></div>
+      <div class="photo"><img src="../../assets/photos/detail-flowers.jpg" alt=""><span class="photo__mono">2027</span></div>
+    </div>
+  </section>
+
+  <section class="s s--sand">
+    <h2>Will you join us?</h2>
+    <p class="lead">Kindly reply by 10 August 2027.</p>
+    <form class="rsvp" novalidate>
+      <label for="n">Your full name</label><input id="n" name="name" autocomplete="name" placeholder="Ama Owusu">
+      <fieldset><legend>Which days will you attend?</legend>
+        <label class="choice"><input type="checkbox" name="d1" checked> Day one: traditional engagement</label>
+        <label class="choice"><input type="checkbox" name="d2" checked> Day two: white wedding</label></fieldset>
+      <p class="rsvp__error" role="alert"></p>
+      <button class="btn btn--green" type="submit">Send RSVP</button>
+      <p class="rsvp__done" role="status" style="color:var(--green-2)"></p>
+    </form>
+  </section>
+
+  <section class="s">
+    <h2>Gifts</h2>
+    <p class="lead">Your presence is the greatest gift. If you'd like to bless the couple:</p>
+    <div class="gift"><small>MOBILE MONEY (SAMPLE)</small><strong>024 000 0000</strong><button class="btn" style="color:var(--green-2)" data-copy="0240000000">Copy number</button></div>
+    <p style="margin-top:2.2rem"><button class="btn btn--green" id="ics">Save the date</button></p>
+  </section>
+
+  <div class="made">
+    <p>A sample wedding website by <a href="../../">Ever After by TeamAfot</a>. Akosua, Yaw, their families and every detail here are made up.</p>
+    <a class="btn" href="https://wa.me/233245502417?text=Hello%20Ever%20After%2C%20I%20loved%20the%20Akosua%20%26%20Yaw%20sample.%20I%27d%20like%20a%20site%20like%20it." target="_blank" rel="noopener">I want one like this</a>
+  </div>
+</main>
+
+<div class="toast" role="status" aria-live="polite"></div>
+<canvas class="fx" aria-hidden="true"></canvas>
+<script src="../base.js"></script>
+<script>
+  EA.countdown("2027-09-10T09:00:00");
+  EA.rsvp(document.querySelector(".rsvp"), "Akosua and Yaw");
+  EA.calendar(document.getElementById("ics"), { title: "Akosua & Yaw's engagement and wedding", date: "2027-09-10T09:00:00", location: "Kumasi, Ghana", file: "akosua-yaw-wedding" });
+
+  const weave = document.querySelector(".weave");
+  document.querySelector(".medal__go").addEventListener("click", () => {
+    weave.classList.add("is-leaving");
+    document.body.classList.remove("is-locked");
+    setTimeout(() => EA.shower(["#E0A82E", "#F0D48E", "#1F6B3A", "#A8322D"], { shape: "flake", count: 90 }), 400);
+    setTimeout(() => weave.remove(), 1500);
+  });
+
+  // Tabs
+  const tabs = [...document.querySelectorAll(".tab")];
+  const select = (t) => tabs.forEach((x) => {
+    const on = x === t;
+    x.setAttribute("aria-selected", on);
+    x.tabIndex = on ? 0 : -1;
+    document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => select(t));
+    t.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        const n = tabs[(i + (e.key === "ArrowRight" ? 1 : tabs.length - 1)) % tabs.length];
+        select(n); n.focus();
+      }
+    });
+  });
+  select(tabs[0]);
+</script>
+</body>
+</html>

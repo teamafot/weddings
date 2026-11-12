@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Naa &amp; Nii | Sample wedding website | Ever After</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../base.css">
+<style>
+  :root { --blush: #FBEDE9; --petal: #F2C9C4; --rose: #B9707D; --deep: #7E3F4B; --sage: #A9B79B; --sage-d: #5F7255; --cream: #FFF9F6; --ink: #4A3236; --mute: #7D6A6C; --accent: #B9707D;
+    --photo-fallback: linear-gradient(140deg, #F6D9D4, #D9B3B8); }
+  body { background: var(--cream); color: var(--ink); }
+  .flowers { position: absolute; pointer-events: none; }
+  .flowers svg { width: 100%; height: 100%; }
+
+  /* Opening: scratch card */
+  .scratch { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 4rem 1.25rem 2rem; background: radial-gradient(40rem 30rem at 50% 40%, #FFF4F1, var(--blush) 70%); transition: opacity .9s ease, visibility .9s; overflow: hidden; }
+  .scratch.is-done { opacity: 0; visibility: hidden; }
+  .scratch__card { position: relative; width: min(92vw, 400px); background: var(--cream); padding: 2.4rem 1.8rem 2rem; text-align: center; border-radius: 6px; box-shadow: 0 30px 70px -30px rgba(126,63,75,.45); }
+  .scratch__card::before { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(169,183,155,.7); border-radius: 3px; pointer-events: none; }
+  .scratch__kicker { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--mute); }
+  .scratch__names { font-family: var(--script); font-size: clamp(2.8rem, 10vw, 3.6rem); line-height: 1.15; color: var(--deep); }
+  .scratch__names span { color: var(--sage-d); }
+  .scratch__say { font-size: .85rem; letter-spacing: .14em; color: var(--rose); margin: .4rem 0 1.2rem; }
+  .scratch__area { position: relative; width: 220px; height: 220px; margin: 0 auto; border-radius: 50%; overflow: hidden; background: var(--blush); display: grid; place-items: center; }
+  .scratch__date { font-family: var(--serif); font-weight: 600; color: var(--deep); line-height: 1.1; }
+  .scratch__date b { display: block; font-size: 3.6rem; font-weight: 600; }
+  .scratch__date small { display: block; font-size: 1.1rem; letter-spacing: .14em; }
+  .scratch__area canvas { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; touch-action: none; transition: opacity .8s ease; }
+  .scratch__area.is-clear canvas { opacity: 0; pointer-events: none; }
+  .scratch__hint { margin-top: 1.1rem; font-size: .88rem; color: var(--mute); }
+  .scratch__skip { background: none; border: 0; color: var(--mute); font-size: .8rem; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; margin-top: .3rem; }
+  .scratch__go { margin-top: 1.2rem; background: var(--deep); color: var(--cream); border-color: var(--deep); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .6s, transform .6s; }
+  .scratch.is-revealed .scratch__go { opacity: 1; transform: none; pointer-events: auto; }
+  .scratch.is-revealed .scratch__hint, .scratch.is-revealed .scratch__skip { display: none; }
+
+  /* Hero */
+  .hero { position: relative; min-height: 92vh; display: grid; place-items: center; text-align: center; padding: 6rem 1.5rem 4rem; background: radial-gradient(50rem 30rem at 50% 30%, #FFF4F1, var(--blush) 75%); overflow: hidden; }
+  .hero__inner { position: relative; z-index: 1; }
+  .hero__kicker { font-family: var(--serif); font-style: italic; font-size: 1.25rem; color: var(--mute); }
+  .hero h1 { font-family: var(--script); font-weight: 400; font-size: clamp(4rem, 14vw, 8rem); line-height: 1.1; color: var(--deep); margin: .3rem 0; }
+  .hero h1 span { color: var(--sage-d); font-size: .75em; }
+  .hero__date { font-family: var(--serif); font-weight: 600; font-size: 1.5rem; letter-spacing: .04em; }
+  .hero__city { font-size: .82rem; letter-spacing: .24em; color: var(--rose); }
+  .blooms { display: flex; justify-content: center; gap: clamp(.6rem, 2vw, 1.2rem); margin-top: 2.2rem; }
+  .bloom { width: clamp(68px, 18vw, 86px); aspect-ratio: 1; display: grid; place-items: center; border-radius: 50%; background: var(--cream); box-shadow: 0 0 0 6px rgba(242,201,196,.6), 0 0 0 7px rgba(169,183,155,.6); }
+  .bloom b { font-family: var(--serif); font-weight: 600; font-size: 1.8rem; line-height: 1; color: var(--deep); font-variant-numeric: tabular-nums; }
+  .bloom small { font-size: .65rem; letter-spacing: .12em; color: var(--mute); margin-top: -.6rem; }
+
+  .s { padding: clamp(4rem, 9vw, 6.5rem) 1.5rem; text-align: center; position: relative; }
+  .s h2 { font-family: var(--script); font-weight: 400; font-size: clamp(2.8rem, 8vw, 4rem); line-height: 1.15; color: var(--rose); margin-bottom: .8rem; }
+  .s .lead { max-width: 34rem; margin: 0 auto; color: var(--mute); }
+  .s--blush { background: var(--blush); }
+
+  /* Polaroids */
+  .wall { display: flex; justify-content: center; flex-wrap: wrap; gap: clamp(1rem, 3vw, 2rem); max-width: 1000px; margin: 2.5rem auto 0; }
+  .pola { width: clamp(150px, 26vw, 220px); background: #fff; padding: .7rem .7rem 0; box-shadow: 0 18px 30px -18px rgba(74,50,54,.45); transform: rotate(var(--r)); transition: transform .4s var(--ease); }
+  .pola:hover { transform: rotate(0) scale(1.04); }
+  .pola .photo { aspect-ratio: 1; }
+  .pola p { font-family: var(--script); font-size: 1.5rem; line-height: 2.6rem; color: var(--ink); }
+
+  /* Schedule */
+  .sched { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; max-width: 980px; margin: 2.5rem auto 0; }
+  .sched div { background: var(--cream); padding: 1.6rem 1rem; border-radius: 120px 120px 12px 12px; }
+  .sched time { font-family: var(--serif); font-weight: 600; font-size: 1.6rem; color: var(--rose); }
+  .sched h3 { font-family: var(--serif); font-weight: 600; font-size: 1.25rem; margin: .2rem 0; }
+  .sched p { font-size: .92rem; color: var(--mute); }
+  .venue { margin-top: 2rem; }
+  .venue strong { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; display: block; }
+  .btn--rose { background: var(--deep); color: var(--cream); border-color: var(--deep); }
+  .btn--line { color: var(--deep); border-color: rgba(126,63,75,.4); }
+  .swatches { display: flex; justify-content: center; gap: 1.2rem; margin-top: 1.6rem; }
+  .swatches div { display: grid; justify-items: center; gap: .4rem; font-size: .85rem; color: var(--mute); }
+  .swatches i { width: 54px; height: 54px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 4px var(--cream), 0 0 0 5px rgba(169,183,155,.7); }
+
+  /* FAQ */
+  .faq { max-width: 38rem; margin: 2.2rem auto 0; text-align: left; }
+  .faq details { border-bottom: 1px solid rgba(185,112,125,.3); }
+  .faq summary { list-style: none; cursor: pointer; padding: 1.1rem 2rem 1.1rem 0; position: relative; font-family: var(--serif); font-weight: 600; font-size: 1.25rem; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: "+"; position: absolute; right: .2rem; top: .9rem; font-family: var(--sans); font-weight: 300; font-size: 1.6rem; color: var(--rose); transition: transform .3s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding: 0 0 1.2rem; color: var(--mute); }
+
+  .gift { max-width: 22rem; margin: 2rem auto 0; background: var(--cream); padding: 2rem; border-radius: 12px; }
+  .gift strong { display: block; font-family: var(--serif); font-weight: 600; font-size: 2rem; margin: .2rem 0 1rem; color: var(--deep); }
+  .gift small { font-size: .75rem; letter-spacing: .2em; color: var(--mute); }
+  .made a:not(.btn) { color: var(--rose); }
+
+  @media (max-width: 760px) { .sched { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body class="is-locked">
+<div class="bar"><a href="../../#work">← Ever After</a><span class="bar__label">Sample wedding website</span><a class="bar__cta" href="../../#book">Get one like this</a></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="fl"><g fill="#F2C9C4"><circle cx="0" cy="-14" r="11"/><circle cx="13" cy="-4" r="11"/><circle cx="8" cy="12" r="11"/><circle cx="-8" cy="12" r="11"/><circle cx="-13" cy="-4" r="11"/></g><circle r="6" fill="#E3B66B"/></g>
+    <g id="lf"><path d="M0 0c10-14 30-16 40-10C30 0 12 4 0 0z" fill="#A9B79B"/></g>
+  </defs>
+</svg>
+
+<div class="scratch" role="dialog" aria-label="Save the date">
+  <div class="flowers" style="left:-40px;top:30px;width:260px;height:220px"><svg viewBox="0 0 260 220"><use href="#lf" transform="translate(70 120) rotate(-30) scale(1.6)"/><use href="#lf" transform="translate(110 70) rotate(40) scale(1.3)"/><use href="#fl" transform="translate(90 100) scale(1.8)"/><use href="#fl" transform="translate(160 150) scale(1.1)"/><use href="#fl" transform="translate(40 170) scale(.9)"/></svg></div>
+  <div class="flowers" style="right:-40px;bottom:10px;width:280px;height:240px"><svg viewBox="0 0 280 240"><use href="#lf" transform="translate(150 140) rotate(200) scale(1.7)"/><use href="#lf" transform="translate(190 90) rotate(140) scale(1.3)"/><use href="#fl" transform="translate(170 130) scale(2)"/><use href="#fl" transform="translate(90 170) scale(1.2)"/><use href="#fl" transform="translate(230 200) scale(1)"/></svg></div>
+  <div class="scratch__card">
+    <p class="scratch__kicker">Save the date</p>
+    <p class="scratch__names">Naa <span>&amp;</span> Nii</p>
+    <p class="scratch__say">ARE GETTING MARRIED</p>
+    <div class="scratch__area">
+      <p class="scratch__date"><b>04</b><small>DECEMBER 2027</small></p>
+      <canvas width="440" height="440" aria-hidden="true"></canvas>
+    </div>
+    <p class="scratch__hint">Scratch the gold to reveal our date</p>
+    <button class="scratch__skip">Reveal without scratching</button><br>
+    <button class="btn scratch__go">Open our wedding website</button>
+  </div>
+</div>
+
+<main>
+  <header class="hero">
+    <div class="flowers" style="left:-30px;top:40px;width:300px;height:260px"><svg viewBox="0 0 300 260"><use href="#lf" transform="translate(80 140) rotate(-30) scale(1.8)"/><use href="#lf" transform="translate(130 80) rotate(40) scale(1.4)"/><use href="#fl" transform="translate(100 120) scale(2.1)"/><use href="#fl" transform="translate(180 170) scale(1.2)"/><use href="#fl" transform="translate(50 200) scale(1)"/></svg></div>
+    <div class="flowers" style="right:-30px;bottom:20px;width:300px;height:260px"><svg viewBox="0 0 300 260"><use href="#lf" transform="translate(170 150) rotate(200) scale(1.8)"/><use href="#lf" transform="translate(210 100) rotate(140) scale(1.4)"/><use href="#fl" transform="translate(190 140) scale(2.1)"/><use href="#fl" transform="translate(110 190) scale(1.2)"/><use href="#fl" transform="translate(250 220) scale(1)"/></svg></div>
+    <div class="hero__inner">
+      <p class="hero__kicker">Surrounded by flowers and family</p>
+      <h1>Naa <span>&amp;</span> Nii</h1>
+      <p class="hero__date">Saturday, 4 December 2027</p>
+      <p class="hero__city">ABURI GARDENS, GHANA</p>
+      <div class="blooms">
+        <div class="bloom"><div><b data-cd="d">0</b><br><small>DAYS</small></div></div>
+        <div class="bloom"><div><b data-cd="h">00</b><br><small>HOURS</small></div></div>
+        <div class="bloom"><div><b data-cd="m">00</b><br><small>MINS</small></div></div>
+        <div class="bloom"><div><b data-cd="s">00</b><br><small>SECS</small></div></div>
+      </div>
+    </div>
+  </header>
+
+  <section class="s">
+    <h2>Our little story</h2>
+    <p class="lead">Naa loves gardens and Nii loves Naa, so a garden wedding in the cool hills of Aburi was the easiest decision they ever made. Here are a few moments from the way here.</p>
+    <div class="wall">
+      <figure class="pola" style="--r:-4deg; margin:0"><div class="photo"><img src="../../assets/photos/garden-1.jpg" alt=""><span class="photo__mono">us</span></div><p>Where it began</p></figure>
+      <figure class="pola" style="--r:3deg; margin:0"><div class="photo"><img src="../../assets/photos/garden-2.jpg" alt=""><span class="photo__mono">2023</span></div><p>Sunday picnics</p></figure>
+      <figure class="pola" style="--r:-2deg; margin:0"><div class="photo"><img src="../../assets/photos/detail-rings.jpg" alt=""><span class="photo__mono">yes!</span></div><p>She said yes</p></figure>
+      <figure class="pola" style="--r:5deg; margin:0"><div class="photo"><img src="../../assets/photos/detail-flowers.jpg" alt=""><span class="photo__mono">soon</span></div><p>Almost there</p></figure>
+    </div>
+  </section>
+
+  <section class="s s--blush">
+    <h2>The day</h2>
+    <p class="lead">An afternoon in the garden that flows into an evening under the stars.</p>
+    <div class="sched">
+      <div><time>3:00</time><h3>Vows</h3><p>On the garden lawn</p></div>
+      <div><time>4:00</time><h3>Tea and photos</h3><p>Lemonade, cake and pictures</p></div>
+      <div><time>5:30</time><h3>Dinner</h3><p>Long tables on the terrace</p></div>
+      <div><time>7:30</time><h3>Dancing</h3><p>Fairy lights and good music</p></div>
+    </div>
+    <div class="venue"><strong>Botanical Gardens Lawn, Aburi</strong><button class="btn btn--line" style="margin-top:1rem" data-toast="On a real site, this opens directions in Google Maps.">Get directions</button></div>
+  </section>
+
+  <section class="s">
+    <h2>What to wear</h2>
+    <p class="lead">Garden formal in soft, romantic shades. Flat or block heels are kind to the lawn.</p>
+    <div class="swatches"><div><i style="--c:#F2C9C4"></i>Blush</div><div><i style="--c:#A9B79B"></i>Sage</div><div><i style="--c:#FFFFFF"></i>White</div></div>
+  </section>
+
+  <section class="s s--blush">
+    <h2>Questions?</h2>
+    <div class="faq">
+      <details><summary>Is there parking at the venue?</summary><p>Yes, there's free parking at the garden entrance, and ushers will guide you to the lawn.</p></details>
+      <details><summary>Can I bring a plus-one?</summary><p>We'd love to celebrate with everyone, but space is limited. Your invitation shows exactly how many seats are reserved for you.</p></details>
+      <details><summary>Are children welcome?</summary><p>Little ones from our families are part of the day. We kindly ask other guests to enjoy a grown-up evening.</p></details>
+      <details><summary>What if it rains?</summary><p>The terrace is covered, so the celebration carries on, rain or shine.</p></details>
+    </div>
+  </section>
+
+  <section class="s">
+    <h2>Kindly reply</h2>
+    <p class="lead">By 4 November 2027, please.</p>
+    <form class="rsvp" novalidate>
+      <label for="n">Your full name</label><input id="n" name="name" autocomplete="name" placeholder="Ama Owusu">
+      <fieldset><legend>Will you attend?</legend>
+        <label class="choice"><input type="radio" name="attend" value="yes" checked> Joyfully accept</label>
+        <label class="choice"><input type="radio" name="attend" value="no"> Regretfully decline</label></fieldset>
+      <label for="meal">Dinner choice</label>
+      <select id="meal" name="meal"><option>Grilled tilapia</option><option>Chicken jollof</option><option>Vegetarian garden plate</option></select>
+      <p class="rsvp__error" role="alert"></p>
+      <button class="btn btn--rose" type="submit">Send RSVP</button>
+      <p class="rsvp__done" role="status" style="color:var(--rose)"></p>
+    </form>
+  </section>
+
+  <section class="s s--blush">
+    <h2>Gifts</h2>
+    <p class="lead">Your love and presence are more than enough. If you'd like to bless us:</p>
+    <div class="gift"><small>MOBILE MONEY (SAMPLE)</small><strong>024 000 0000</strong><button class="btn btn--line" data-copy="0240000000">Copy number</button></div>
+    <p style="margin-top:2.2rem"><button class="btn btn--rose" id="ics">Save the date</button></p>
+  </section>
+
+  <div class="made">
+    <p>A sample wedding website by <a href="../../">Ever After by TeamAfot</a>. Naa, Nii and every detail here are made up.</p>
+    <a class="btn btn--rose" href="https://wa.me/233245502417?text=Hello%20Ever%20After%2C%20I%20loved%20the%20Naa%20%26%20Nii%20sample.%20I%27d%20like%20a%20site%20like%20it." target="_blank" rel="noopener">I want one like this</a>
+  </div>
+</main>
+
+<div class="toast" role="status" aria-live="polite"></div>
+<canvas class="fx" aria-hidden="true"></canvas>
+<script src="../base.js"></script>
+<script>
+  EA.countdown("2027-12-04T15:00:00");
+  EA.rsvp(document.querySelector(".rsvp"), "Naa and Nii");
+  EA.calendar(document.getElementById("ics"), { title: "Naa & Nii's wedding", date: "2027-12-04T15:00:00", location: "Botanical Gardens, Aburi", file: "naa-nii-wedding" });
+
+  // Scratch-to-reveal
+  const scratch = document.querySelector(".scratch");
+  const area = document.querySelector(".scratch__area");
+  const cv = area.querySelector("canvas");
+  const ctx = cv.getContext("2d");
+  const g = ctx.createLinearGradient(0, 0, 440, 440);
+  [["0", "#B88A44"], [".3", "#E9CF92"], [".5", "#FFF1CF"], [".7", "#D4AE66"], ["1", "#B88A44"]].forEach(([o, c]) => g.addColorStop(+o, c));
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 440, 440);
+  ctx.fillStyle = "rgba(255,255,255,.35)";
+  for (let i = 0; i < 260; i++) ctx.fillRect(Math.random() * 440, Math.random() * 440, 2, 2);
+  ctx.fillStyle = "#7E5A22"; ctx.font = "600 30px Jost, sans-serif"; ctx.textAlign = "center"; ctx.fillText("SCRATCH HERE", 220, 230);
+
+  let drawing = false, revealed = false, moves = 0;
+  const pos = (e) => { const r = cv.getBoundingClientRect(); return [(e.clientX - r.left) * (440 / r.width), (e.clientY - r.top) * (440 / r.height)]; };
+  const rub = (e) => {
+    if (!drawing || revealed) return;
+    const [x, y] = pos(e);
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.beginPath(); ctx.arc(x, y, 34, 0, Math.PI * 2); ctx.fill();
+    if (++moves % 8 === 0) check();
+  };
+  function check() {
+    const data = ctx.getImageData(0, 0, 440, 440).data;
+    let clear = 0;
+    for (let i = 3; i < data.length; i += 64) if (data[i] === 0) clear++;
+    if (clear / (data.length / 64) > 0.45) reveal();
+  }
+  function reveal() {
+    if (revealed) return;
+    revealed = true;
+    area.classList.add("is-clear");
+    scratch.classList.add("is-revealed");
+    EA.shower(["#F2C9C4", "#A9B79B", "#E9CF92", "#FFFFFF"], { count: 110 });
+    document.querySelector(".scratch__go").focus({ preventScroll: true });
+  }
+  cv.addEventListener("pointerdown", (e) => { drawing = true; cv.setPointerCapture(e.pointerId); rub(e); });
+  cv.addEventListener("pointermove", rub);
+  cv.addEventListener("pointerup", () => { drawing = false; check(); });
+  document.querySelector(".scratch__skip").addEventListener("click", reveal);
+  document.querySelector(".scratch__go").addEventListener("click", () => {
+    scratch.classList.add("is-done");
+    document.body.classList.remove("is-locked");
+    setTimeout(() => scratch.remove(), 1000);
+  });
+</script>
+</body>
+</html>
