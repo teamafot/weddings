@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wedding programme | Sample | Ever After by TeamAfot</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/logo/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../demo/base.css">
+<style>
+  :root { --bg: #24131A; --paper: #FFFCF6; --ink: #2B1F22; --mute: #7A6A63; --accent: #8B2D45; --accent-2: #C59A52; --line: rgba(197,154,82,.45); }
+  body { background: var(--bg); color: var(--ink); }
+  .wrap { max-width: 600px; margin: 0 auto; padding: 4.5rem 1rem 7rem; }
+  .booklet { background: var(--paper); border-radius: 6px; box-shadow: 0 30px 70px -30px rgba(0,0,0,.6); overflow: hidden; }
+  .pg { position: relative; padding: clamp(2.6rem, 8vw, 3.6rem) clamp(1.6rem, 6vw, 3rem); text-align: center; }
+  .pg + .pg { border-top: 1px solid var(--line); }
+  .pg--cover { padding-top: 4rem; padding-bottom: 4rem; background: var(--cover-bg, var(--paper)); color: var(--cover-ink, var(--ink)); }
+  .pg--cover::before { content: ""; position: absolute; inset: 14px; border: 1px solid var(--line); pointer-events: none; }
+  .kicker { font-family: var(--serif); font-style: italic; font-size: 1.15rem; color: var(--cover-mute, var(--mute)); }
+  .names { font-family: var(--head); font-weight: 400; font-size: var(--names-size, clamp(3rem, 12vw, 4.4rem)); line-height: 1.15; color: var(--cover-accent, var(--accent)); margin: .6rem 0; }
+  .names span { color: var(--accent-2); }
+  .orn { display: flex; align-items: center; justify-content: center; gap: .6rem; margin: 1.2rem auto; color: var(--accent-2); }
+  .orn i { width: 60px; height: 1px; background: currentColor; opacity: .7; }
+  .orn b { width: 7px; height: 7px; transform: rotate(45deg); background: currentColor; }
+  .date { font-family: var(--serif); font-weight: 600; font-size: 1.25rem; letter-spacing: .03em; }
+  .venue { font-size: .82rem; letter-spacing: .2em; color: var(--cover-mute, var(--mute)); margin-top: .2rem; }
+  .verse { font-family: var(--serif); font-style: italic; font-size: 1.1rem; line-height: 1.5; margin-top: 2rem; color: var(--cover-mute, var(--mute)); }
+  .verse small { display: block; font-style: normal; font-family: var(--sans); font-size: .72rem; letter-spacing: .2em; margin-top: .4rem; }
+  h2 { font-family: var(--head); font-weight: 400; font-size: var(--h2-size, clamp(2.2rem, 8vw, 2.9rem)); line-height: 1.2; color: var(--accent); margin-bottom: 1.4rem; }
+  .order { list-style: none; margin: 0 auto; padding: 0; max-width: 26rem; counter-reset: o; }
+  .order li { counter-increment: o; display: grid; grid-template-columns: 2rem 1fr; gap: .8rem; text-align: left; padding: .7rem 0; border-bottom: 1px dashed var(--line); }
+  .order li::before { content: counter(o); font-family: var(--serif); font-weight: 600; font-size: 1.15rem; color: var(--accent-2); }
+  .order b { display: block; font-weight: 500; font-size: 1rem; }
+  .order span { color: var(--mute); font-size: .9rem; }
+  .party { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.5rem; max-width: 26rem; margin: 0 auto; }
+  .party div small { display: block; font-size: .7rem; letter-spacing: .18em; color: var(--mute); }
+  .party div p { font-family: var(--serif); font-weight: 600; font-size: 1.1rem; line-height: 1.3; }
+  .party .wide { grid-column: 1 / -1; }
+  .thanks p { font-family: var(--serif); font-size: 1.15rem; line-height: 1.6; max-width: 28rem; margin: 0 auto; }
+  .thanks .sign { font-family: var(--head); font-size: var(--sign-size, 2.4rem); color: var(--accent); margin-top: 1rem; line-height: 1.2; }
+  .sample { font-size: .78rem; color: var(--mute); margin-top: 1.6rem; }
+
+  .actions { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: flex; justify-content: center; gap: .6rem; flex-wrap: wrap; padding: .9rem 1rem calc(.9rem + env(safe-area-inset-bottom)); background: rgba(20,12,16,.88); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .actions .btn { color: #FBF6EF; border-color: rgba(251,246,239,.4); }
+  .actions .btn--main { background: #E9CF92; color: #24131A; border-color: #E9CF92; }
+
+  @media print {
+    @page { size: A5; margin: 10mm; }
+    body { background: #fff; }
+    .bar, .actions, .toast, .fx { display: none !important; }
+    .wrap { padding: 0; max-width: none; }
+    .booklet { box-shadow: none; border-radius: 0; }
+    .pg { break-inside: avoid; page-break-inside: avoid; }
+    .pg--cover { break-after: page; page-break-after: always; min-height: 180mm; display: flex; flex-direction: column; justify-content: center; }
+    * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="bar"><a class="bar__back" href="../designs/">← All designs</a><span class="bar__label">Sample wedding programme</span><a class="bar__cta" href="../#book">Get one like this</a></div>
+
+<div class="wrap">
+  <article class="booklet">
+    <section class="pg pg--cover">
+      <p class="kicker" data-k="kicker"></p>
+      <h1 class="names" data-k="names"></h1>
+      <div class="orn" aria-hidden="true"><i></i><b></b><i></i></div>
+      <p class="date" data-k="date"></p>
+      <p class="venue" data-k="venue"></p>
+      <p class="verse"><span data-k="verse"></span><small data-k="verseRef"></small></p>
+    </section>
+    <section class="pg">
+      <h2 data-k="ceremonyTitle"></h2>
+      <ol class="order" data-list="ceremony"></ol>
+    </section>
+    <section class="pg">
+      <h2 data-k="receptionTitle"></h2>
+      <ol class="order" data-list="reception"></ol>
+    </section>
+    <section class="pg">
+      <h2>The wedding party</h2>
+      <div class="party" data-party></div>
+    </section>
+    <section class="pg thanks">
+      <h2>Thank you</h2>
+      <p data-k="thanks"></p>
+      <p class="sign" data-k="sign"></p>
+      <p class="sample">Sample programme by Ever After by TeamAfot. The couple, their party and all details are made up.</p>
+    </section>
+  </article>
+</div>
+
+<div class="actions">
+  <button class="btn btn--main" id="print">Print or save as PDF</button>
+  <a class="btn" id="site" href="#">See their wedding website</a>
+</div>
+
+<script>
+  const P = {
+    "esi-kwame": { theme: { "--bg": "#24131A", "--paper": "#FFFCF6", "--accent": "#5B1F33", "--accent-2": "#C59A52", "--cover-bg": "radial-gradient(circle at 50% 30%, #6A2840, #24131A 80%)", "--cover-ink": "#FBF4E8", "--cover-mute": "#D9C2B4", "--cover-accent": "#F3DDA6", "--head": "var(--script)" },
+      a: "Esi", b: "Kwame", kicker: "The marriage of", date: "Saturday, 13 March 2027", venue: "THE CHAPEL GARDEN, ACCRA", verse: "“Love bears all things, believes all things, hopes all things, endures all things.”", verseRef: "1 CORINTHIANS 13:7",
+      ceremonyTitle: "The ceremony", receptionTitle: "The evening",
+      ceremony: [["Processional", "Arrival of the bridal party and the bride"], ["Call to worship", "Officiating minister"], ["Opening prayer", ""], ["Hymn", "Congregation"], ["Scripture readings", "1 Corinthians 13 and Ruth 1:16–17"], ["Exhortation", "The officiating minister"], ["Exchange of vows and rings", ""], ["Signing of the register", "Choir ministration"], ["Pronouncement and blessing", ""], ["Recessional", "The couple's first walk as one"]],
+      reception: [["Champagne hour", "Cocktails and photographs"], ["Grand entrance", "Esi and Kwame"], ["Dinner is served", ""], ["Toasts", "Best man and maid of honour"], ["Cutting of the cake", ""], ["First dance", ""], ["Vote of thanks", "Families of the couple"], ["Party", "Dance floor opens"]],
+      party: [["Maid of honour", "Akua Darko"], ["Best man", "Yaw Ofori"], ["Bridesmaids", "Efe, Dzifa, Maame"], ["Groomsmen", "Kojo, Selorm, Nana"], ["Master of ceremonies", "Kwesi Appiah", true]],
+      thanks: "Thank you for being part of our story. Your love, prayers and presence mean the world to us.", sign: "Esi & Kwame" },
+    "adjoa-kofi": { theme: { "--bg": "#EDE3D1", "--paper": "#FBF8F2", "--accent": "#1C1A17", "--accent-2": "#B08A3E", "--head": "var(--serif)", "--names-size": "clamp(2.4rem, 10vw, 3.6rem)", "--h2-size": "2rem", "--sign-size": "1.8rem" },
+      a: "ADJOA", b: "KOFI", kicker: "The Wedding Issue · Vol. I", date: "Sunday, 20 June 2027", venue: "HOLY TRINITY CATHEDRAL, ACCRA", verse: "“I have found the one whom my soul loves.”", verseRef: "SONG OF SOLOMON 3:4",
+      ceremonyTitle: "The ceremony", receptionTitle: "The reception",
+      ceremony: [["Processional", ""], ["Opening hymn", "Congregation"], ["Prayer of invocation", ""], ["Readings", "Genesis 2:18–24 and Colossians 3:12–14"], ["The sermon", ""], ["Vows and rings", ""], ["Signing of the register", ""], ["Presentation of the couple", ""], ["Recessional", ""]],
+      reception: [["Arrival of guests", ""], ["Entrance of the couple", ""], ["Opening prayer", ""], ["Lunch", ""], ["Speeches", "Fathers of the couple"], ["Cake", ""], ["First dance", ""], ["Vote of thanks", ""]],
+      party: [["Maid of honour", "Esi Boateng"], ["Best man", "Kwabena Asare"], ["Bridesmaids", "Ama, Afia, Yaa"], ["Groomsmen", "Kwame, Yaw, Kojo"], ["Master of ceremonies", "Nii Armah", true]],
+      thanks: "Six years, many plates of jollof and one very big question later, we are grateful to share this chapter with you.", sign: "Adjoa & Kofi" },
+    "akosua-yaw": { theme: { "--bg": "#173A2A", "--paper": "#F7F1E3", "--accent": "#1F4A35", "--accent-2": "#C59A3A", "--cover-bg": "repeating-linear-gradient(90deg, #E0A82E 0 14px, #1F6B3A 14px 24px, #A8322D 24px 29px, #1F6B3A 29px 39px) top / 100% 12px no-repeat, repeating-linear-gradient(90deg, #E0A82E 0 14px, #1F6B3A 14px 24px, #A8322D 24px 29px, #1F6B3A 29px 39px) bottom / 100% 12px no-repeat, radial-gradient(circle at 50% 35%, #2A5C44, #12301F 80%)", "--cover-ink": "#F7F1E3", "--cover-mute": "#D8CCAA", "--cover-accent": "#F0D48E", "--head": "var(--script)", "--line": "rgba(197,154,58,.45)" },
+      a: "Akosua", b: "Yaw", kicker: "Two days, two traditions, one love", date: "10 & 11 September 2027", venue: "KUMASI, GHANA", verse: "“Two are better than one.”", verseRef: "ECCLESIASTES 4:9",
+      ceremonyTitle: "Day one: the engagement", receptionTitle: "Day two: the white wedding",
+      ceremony: [["Arrival of the groom's family", ""], ["Introductions and welcome", "Family spokespersons"], ["The knocking", "Presentation of drinks"], ["Presentation of items", "Bride price and gifts"], ["Libation and blessings", "Elders of both families"], ["The bride is presented", ""], ["Acceptance and prayers", ""], ["Feast, drumming and dancing", ""]],
+      reception: [["Processional", ""], ["Opening prayer and hymn", ""], ["Readings", "Ruth 1:16 and Ephesians 5:25–33"], ["Exhortation", ""], ["Vows and rings", ""], ["Signing of the register", ""], ["Reception and toasts", ""], ["Cutting of the cake and first dance", ""]],
+      party: [["Spokesperson (bride)", "Opanin Kwaku Asante"], ["Spokesperson (groom)", "Opanin Kofi Boateng"], ["Maid of honour", "Abena Owusu"], ["Best man", "Kwame Mensah"], ["Master of ceremonies", "Agya Kwadwo", true]],
+      thanks: "Medaase! Thank you for honouring our families with your presence over these two special days.", sign: "Akosua & Yaw" },
+    "naa-nii": { theme: { "--bg": "#FBEDE9", "--paper": "#FFF9F6", "--accent": "#B9707D", "--accent-2": "#7C9A6E", "--head": "var(--script)", "--line": "rgba(169,183,155,.6)" },
+      a: "Naa", b: "Nii", kicker: "Surrounded by flowers and family", date: "Saturday, 4 December 2027", venue: "ABURI GARDENS, GHANA", verse: "“For everything there is a season, and a time for every matter under heaven.”", verseRef: "ECCLESIASTES 3:1",
+      ceremonyTitle: "In the garden", receptionTitle: "On the terrace",
+      ceremony: [["Garden processional", "Flower girls lead the way"], ["Welcome", "Officiant"], ["Prayer", ""], ["A reading", "1 Corinthians 13:4–8"], ["Vows written by the couple", ""], ["Exchange of rings", ""], ["Planting of the unity tree", "A symbol of growing together"], ["Pronouncement", ""]],
+      reception: [["Tea, lemonade and photos", ""], ["Dinner at the long tables", ""], ["Toasts", ""], ["Cake", ""], ["First dance under the lights", ""], ["Dancing", ""]],
+      party: [["Maid of honour", "Dede Quaye"], ["Best man", "Tetteh Lamptey"], ["Bridesmaids", "Adoley, Korkor, Naki"], ["Groomsmen", "Nii Ayi, Nii Okai, Odartey"], ["Master of ceremonies", "Nii Lante", true]],
+      thanks: "Thank you for joining us in the garden. Every flower here was chosen with you in mind.", sign: "Naa & Nii" },
+    "ama-kojo": { theme: { "--bg": "#1B1512", "--paper": "#FBF3E4", "--accent": "#22335A", "--accent-2": "#C0656E", "--cover-bg": "linear-gradient(90deg, #172443 0 7%, #22335A 7%)", "--cover-ink": "#F3DDA6", "--cover-mute": "#E6CFA0", "--cover-accent": "#F3DDA6", "--head": "var(--script)" },
+      a: "Ama", b: "Kojo", kicker: "The final chapter of", date: "Saturday, 15 May 2027", venue: "TEMA, GHANA", verse: "“And they lived happily ever after.”", verseRef: "THE END, AND THE BEGINNING",
+      ceremonyTitle: "Chapter five: the vows", receptionTitle: "Chapter six: the celebration",
+      ceremony: [["Once upon a time…", "Processional"], ["Welcome and prayer", ""], ["Hymn", ""], ["Readings", "Proverbs 3:3–4 and John 15:12"], ["A word for the couple", ""], ["Vows and rings", ""], ["Signing of the register", ""], ["The kiss", ""]],
+      reception: [["Grand entrance", ""], ["Lunch", ""], ["The storybook toast", "Friends from Tema"], ["Cake", ""], ["First dance", ""], ["Thank you and goodbye", ""]],
+      party: [["Maid of honour", "Esi Nyarko"], ["Best man", "Kwaku Otoo"], ["Bridesmaids", "Afua, Adwoa, Abla"], ["Groomsmen", "Fiifi, Kobby, Ekow"], ["Master of ceremonies", "Uncle Paa Kow", true]],
+      thanks: "Thank you for being part of our story. The next chapter starts with you in it.", sign: "Ama & Kojo" },
+    "dede-tetteh": { theme: { "--bg": "#120B24", "--paper": "#1C1236", "--ink": "#F4EEFF", "--mute": "#B6A8D6", "--accent": "#FFC24B", "--accent-2": "#FF4D8D", "--line": "rgba(255,77,141,.35)", "--head": "var(--sans)", "--names-size": "clamp(2.6rem, 11vw, 4rem)", "--h2-size": "2rem", "--sign-size": "1.8rem" },
+      a: "DEDE", b: "TETTEH", kicker: "One night only", date: "Saturday, 23 October 2027", venue: "THE BEACHFRONT PAVILION, LABADI", verse: "“Let all that you do be done in love.”", verseRef: "1 CORINTHIANS 16:14",
+      ceremonyTitle: "Side A: the vows", receptionTitle: "Side B: the party",
+      ceremony: [["Intro", "Processional at sunset"], ["Welcome", "Officiant"], ["Prayer", ""], ["Reading", "Colossians 3:14"], ["Vows and rings", ""], ["Pronouncement", ""], ["Outro", "Recessional to the dance floor"]],
+      reception: [["Cocktail hour", "Sobolo mocktails and small chops"], ["Dinner", "Jollof, grills and toasts"], ["Speeches", ""], ["Cake", ""], ["First dance", ""], ["Live band", ""], ["DJ set till late", ""]],
+      party: [["Maid of honour", "Naa Adjeley"], ["Best man", "Nii Teiko"], ["Bridesmaids", "Korkor, Dzidzor, Akweley"], ["Groomsmen", "Tettey, Ashitey, Nortey"], ["Master of ceremonies", "MC Kpakpo", true]],
+      thanks: "Thank you for bringing the vibe. Tonight is for dancing, so don't leave the floor empty!", sign: "Dede & Tetteh" },
+    "efua-kwesi": { theme: { "--bg": "#0B2A3C", "--paper": "#FBF1DF", "--accent": "#0E6E8C", "--accent-2": "#F2785C", "--cover-bg": "linear-gradient(180deg, #FF9A76, #FFC48C 45%, #FFE3B0 70%, #F3D9A7 70%)", "--cover-ink": "#0B2A3C", "--cover-mute": "#7A3E2A", "--cover-accent": "#FFFFFF", "--head": "var(--script)", "--line": "rgba(14,110,140,.3)" },
+      a: "Efua", b: "Kwesi", kicker: "A beach wedding in Cape Coast", date: "Saturday, 14 August 2027", venue: "SEABREEZE RESORT, CAPE COAST", verse: "“Many waters cannot quench love.”", verseRef: "SONG OF SOLOMON 8:7",
+      ceremonyTitle: "On the sand", receptionTitle: "Under the stars",
+      ceremony: [["Barefoot processional", ""], ["Welcome", ""], ["Prayer", ""], ["Reading", "Song of Solomon 8:6–7"], ["Vows by the sea", ""], ["Exchange of rings", ""], ["Sand ceremony", "Two colours of sand become one"], ["Pronouncement", ""]],
+      reception: [["Coconut cocktails", ""], ["Seafood feast", ""], ["Toasts", ""], ["Cake", ""], ["First dance", ""], ["Bonfire and dancing", ""]],
+      party: [["Maid of honour", "Araba Mensah"], ["Best man", "Ekow Quansah"], ["Bridesmaids", "Esi, Abena, Adwoa"], ["Groomsmen", "Kobina, Kwamena, Fiifi"], ["Master of ceremonies", "Papa Kwesi", true]],
+      thanks: "Thank you for making the journey to the coast with us. We hope you leave with sand in your shoes and joy in your heart.", sign: "Efua & Kwesi" },
+    "selasi-edem": { theme: { "--bg": "#CFC1FF", "--paper": "#FFFFFF", "--accent": "#5B3FD0", "--accent-2": "#FF7AA8", "--cover-bg": "linear-gradient(135deg, #5B3FD0, #FF7AA8)", "--cover-ink": "#FFFFFF", "--cover-mute": "rgba(255,255,255,.85)", "--cover-accent": "#FFFFFF", "--head": "var(--script)", "--line": "rgba(91,63,208,.25)" },
+      a: "Selasi", b: "Edem", kicker: "You're invited 💌", date: "Friday, 18 June 2027", venue: "HO, VOLTA REGION", verse: "“We love because He first loved us.”", verseRef: "1 JOHN 4:19",
+      ceremonyTitle: "The ceremony", receptionTitle: "The celebration",
+      ceremony: [["Processional", ""], ["Call to worship", ""], ["Opening hymn", "In Ewe and English"], ["Readings", "Ruth 1:16 and 1 John 4:7–12"], ["Exhortation", ""], ["Vows and rings", ""], ["Signing of the register", ""], ["Recessional", ""]],
+      reception: [["Grand entrance", ""], ["Lunch", ""], ["Toasts", ""], ["Cake", ""], ["First dance", ""], ["Agbadza dance", "Everybody up!"], ["Vote of thanks", ""]],
+      party: [["Maid of honour", "Enyonam Agbeko"], ["Best man", "Elikem Dzokoto"], ["Bridesmaids", "Dzifa, Mawusi, Sena"], ["Groomsmen", "Kekeli, Senyo, Delali"], ["Master of ceremonies", "Uncle Mawuli", true]],
+      thanks: "Akpe na mi! Thank you for celebrating with us. Your love made this day complete.", sign: "Selasi & Edem" },
+  };
+  const slug = new URLSearchParams(location.search).get("c");
+  const c = P[slug] || P["esi-kwame"];
+  const key = P[slug] ? slug : "esi-kwame";
+  for (const [k, v] of Object.entries(c.theme)) document.documentElement.style.setProperty(k, v);
+  document.title = `${c.a} & ${c.b} | Wedding programme | Ever After`;
+  const set = (k, v) => document.querySelectorAll(`[data-k="${k}"]`).forEach((el) => (el.textContent = v));
+  ["kicker", "date", "venue", "verse", "verseRef", "ceremonyTitle", "receptionTitle", "thanks", "sign"].forEach((k) => set(k, c[k]));
+  const names = document.querySelector('[data-k="names"]');
+  names.append(c.a, " ", Object.assign(document.createElement("span"), { textContent: "&" }), " ", c.b);
+  const fill = (name, items) => {
+    const ol = document.querySelector(`[data-list="${name}"]`);
+    items.forEach(([t, s]) => { const li = document.createElement("li"); const d = document.createElement("div"); const b = document.createElement("b"); b.textContent = t; d.append(b); if (s) { const sp = document.createElement("span"); sp.textContent = s; d.append(sp); } li.append(d); ol.append(li); });
+  };
+  fill("ceremony", c.ceremony); fill("reception", c.reception);
+  const party = document.querySelector("[data-party]");
+  c.party.forEach(([role, who, wide]) => { const d = document.createElement("div"); if (wide) d.className = "wide"; const s = document.createElement("small"); s.textContent = role.toUpperCase(); const p = document.createElement("p"); p.textContent = who; d.append(s, p); party.append(d); });
+  document.getElementById("site").href = `../demo/${key}/`;
+  document.getElementById("print").addEventListener("click", () => window.print());
+</script>
+</body>
+</html>

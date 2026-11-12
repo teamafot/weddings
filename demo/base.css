@@ -61,3 +61,5 @@ button { font: inherit; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }
+
+.made__prog { font-size: .92rem; text-underline-offset: 4px; opacity: .9; }
