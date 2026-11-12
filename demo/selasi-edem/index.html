@@ -33,12 +33,20 @@
   .typing i { width: 7px; height: 7px; border-radius: 50%; background: #A79FC4; animation: dot 1s infinite; }
   .typing i:nth-child(2) { animation-delay: .15s; } .typing i:nth-child(3) { animation-delay: .3s; }
   @keyframes dot { 50% { transform: translateY(-4px); opacity: .5; } }
+  .chat__body > * { flex-shrink: 0; }
   .invitecard { align-self: center; width: 92%; border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 10px 24px -10px rgba(27,21,48,.35); animation: pop .5s var(--ease) both; }
   .invitecard__art { height: 150px; background: linear-gradient(135deg, var(--purple), var(--pink)); display: grid; place-items: center; color: #fff; text-align: center; }
   .invitecard__art b { font-family: var(--script); font-weight: 400; font-size: 2.2rem; line-height: 1.1; display: block; }
   .invitecard__art small { font-size: .78rem; letter-spacing: .2em; }
   .invitecard button { width: 100%; border: 0; background: #fff; color: var(--purple); font: 500 .95rem var(--sans); padding: .9rem; cursor: pointer; border-top: 1px solid #EEE; }
   .invitecard button::before { content: "💌 "; }
+  .invitecard button { background: var(--purple); color: #fff; font-size: 1rem; animation: glow 1.6s ease-in-out infinite; }
+  @keyframes glow { 0%, 100% { box-shadow: inset 0 0 0 0 rgba(255,255,255,.0); } 50% { box-shadow: inset 0 0 0 999px rgba(255,255,255,.14); } }
+  .invitecard__hint { text-align: center; font-size: .8rem; color: var(--purple-d); padding: .5rem 0 .2rem; animation: blinkhint 1.4s ease-in-out infinite; }
+  @keyframes blinkhint { 50% { opacity: .45; } }
+  .invitecard__bar { height: 3px; background: rgba(91,63,208,.15); }
+  .invitecard__bar i { display: block; height: 100%; width: 0; background: var(--pink); animation: auto 6s linear forwards; }
+  @keyframes auto { to { width: 100%; } }
   .chat__foot { display: flex; align-items: center; gap: .5rem; padding: .6rem .7rem .9rem; background: #F4EFE6; }
   .chat__foot span { flex: 1; background: #fff; border-radius: 999px; padding: .55rem .9rem; font-size: .85rem; color: #A79FC4; }
   .chat__foot i { width: 38px; height: 38px; border-radius: 50%; background: var(--purple); display: grid; place-items: center; color: #fff; font-style: normal; }
@@ -129,7 +137,7 @@
       <div class="chat__foot" aria-hidden="true"><span>Message</span><i>➤</i></div>
     </div>
   </div>
-  <button class="skip">Skip to the invitation</button>
+  <button class="skip">Skip straight to the website</button>
 </div>
 
 <main>
@@ -245,19 +253,25 @@
   function showCard() {
     if (gate.querySelector(".invitecard")) return;
     const c = document.createElement("div"); c.className = "invitecard";
-    c.innerHTML = `<div class="invitecard__art"><div><small>YOU'RE INVITED</small><b>Selasi &amp; Edem</b><small>18 · 06 · 2027 · HO</small></div></div><button>Open invitation</button>`;
-    body.append(c); body.scrollTop = body.scrollHeight;
+    c.innerHTML = `<div class="invitecard__art"><div><small>YOU'RE INVITED</small><b>Selasi &amp; Edem</b><small>18 · 06 · 2027 · HO</small></div></div><p class="invitecard__hint">Tap below to open your invitation 👇</p><button>Open invitation</button><div class="invitecard__bar" aria-hidden="true"><i></i></div>`;
+    body.append(c);
+    requestAnimationFrame(() => { body.scrollTop = body.scrollHeight; });
+    setTimeout(() => { body.scrollTop = body.scrollHeight; }, 400);
     c.querySelector("button").addEventListener("click", enter);
     c.querySelector("button").focus({ preventScroll: true });
+    autoOpen = setTimeout(enter, 6000);
   }
+  let autoOpen;
   function enter() {
+    if (gate.classList.contains("is-done")) return;
+    clearTimeout(autoOpen);
     finished = true;
     gate.classList.add("is-done");
     document.body.classList.remove("is-locked");
     EA.shower(["#5B3FD0", "#FF7AA8", "#2DBE8C", "#FFB86B"], { shape: "dot", count: 120 });
     setTimeout(() => gate.remove(), 900);
   }
-  gate.querySelector(".skip").addEventListener("click", () => { finished = true; body.querySelectorAll(".typing").forEach((t) => t.remove()); showCard(); });
+  gate.querySelector(".skip").addEventListener("click", enter);
   play();
 
   // ----- Stories -----
