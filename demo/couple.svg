@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 300" role="img" aria-label="Illustrated bride and groom holding hands">
+  <!-- ground shadow -->
+  <ellipse cx="120" cy="288" rx="92" ry="9" fill="#000" opacity=".12"/>
+  <!-- GROOM -->
+  <g>
+    <!-- legs -->
+    <path d="M150 200 L148 280 L163 280 L166 212 Z" fill="#1F2B44"/>
+    <path d="M176 200 L182 280 L196 280 L190 205 Z" fill="#1F2B44"/>
+    <path d="M144 278 h24 a4 4 0 0 1 0 8 h-26 z M178 278 h24 a4 4 0 0 1 0 8 h-24 z" fill="#111"/>
+    <!-- jacket -->
+    <path d="M140 132 Q172 118 200 132 L204 210 Q172 220 140 210 Z" fill="#26375C"/>
+    <path d="M160 126 L172 160 L184 126 Z" fill="#F6F1E7"/>
+    <path d="M172 136 l-7 -5 v10 z M172 136 l7 -5 v10 z" fill="#C59A52"/>
+    <path d="M160 126 L172 168 L150 134 Z M184 126 L172 168 L194 134 Z" fill="#1D2C4C"/>
+    <circle cx="172" cy="182" r="2" fill="#C59A52"/><circle cx="172" cy="195" r="2" fill="#C59A52"/>
+    <!-- right arm -->
+    <path d="M198 134 Q214 168 206 204" stroke="#26375C" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <circle cx="206" cy="206" r="7" fill="#6B4026"/>
+    <!-- left arm reaching to bride -->
+    <path d="M144 136 Q126 166 122 186" stroke="#26375C" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <!-- boutonniere -->
+    <circle cx="192" cy="146" r="4.5" fill="#E9A8A6"/><circle cx="192" cy="146" r="1.8" fill="#C97C7A"/>
+    <!-- neck + head -->
+    <rect x="164" y="104" width="16" height="22" rx="6" fill="#6B4026"/>
+    <ellipse cx="172" cy="84" rx="25" ry="28" fill="#7A4A2C"/>
+    <path d="M147 80 Q148 52 172 52 Q197 52 197 80 Q194 64 172 63 Q150 64 147 80 Z" fill="#141414"/>
+    <ellipse cx="146" cy="88" rx="4" ry="6" fill="#7A4A2C"/><ellipse cx="198" cy="88" rx="4" ry="6" fill="#7A4A2C"/>
+    <path d="M161 86 q4 -3 8 0 M176 86 q4 -3 8 0" stroke="#141414" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+    <path d="M163 100 q9 7 18 0" stroke="#141414" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+    <path d="M160 101 q12 14 24 0 q-2 12 -12 12 q-10 0 -12 -12 Z" fill="#141414" opacity=".18"/>
+    <circle cx="157" cy="95" r="4" fill="#E58C7A" opacity=".35"/><circle cx="187" cy="95" r="4" fill="#E58C7A" opacity=".35"/>
+  </g>
+  <!-- BRIDE -->
+  <g>
+    <!-- veil -->
+    <path d="M44 66 Q20 150 30 236 Q60 250 84 230 Q74 150 84 76 Z" fill="#EDE6F2" opacity=".85"/><path d="M44 66 Q26 150 34 232" stroke="#D9CFE3" stroke-width="2" fill="none"/>
+    <!-- gown -->
+    <path d="M64 126 Q80 116 96 126 L104 170 Q140 236 128 286 L22 286 Q12 236 56 170 Z" fill="#FFFDF8"/>
+    <path d="M56 170 Q80 180 104 170" stroke="#E9DCC6" stroke-width="3" fill="none"/>
+    <path d="M40 230 Q76 246 118 232 M30 262 Q76 276 126 262" stroke="#EFE4D2" stroke-width="2.5" fill="none"/>
+    <path d="M64 126 Q80 138 96 126 L98 140 Q80 150 62 140 Z" fill="#F4EBDC"/>
+    <!-- arms -->
+    <path d="M64 134 Q50 164 58 188" stroke="#6B4026" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <path d="M96 134 Q112 160 122 186" stroke="#6B4026" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <!-- bouquet -->
+    <g transform="translate(58 192)">
+      <path d="M-2 4 L4 26 L10 4 Z" fill="#7C9C6B"/>
+      <circle cx="-6" cy="0" r="7" fill="#F2C9C4"/><circle cx="6" cy="-4" r="8" fill="#E9A8A6"/><circle cx="14" cy="4" r="6" fill="#F7E1A8"/><circle cx="2" cy="6" r="6" fill="#FFFFFF"/>
+    </g>
+    <!-- joined hands -->
+    <circle cx="122" cy="188" r="7.5" fill="#6B4026"/>
+    <!-- neck + head -->
+    <rect x="72" y="100" width="15" height="24" rx="6" fill="#6B4026"/>
+    <ellipse cx="80" cy="80" rx="24" ry="27" fill="#7A4A2C"/>
+    <!-- hair: puffy bun -->
+    <circle cx="80" cy="40" r="18" fill="#141414"/>
+    <path d="M55 82 Q52 52 80 50 Q108 52 105 82 Q100 62 80 62 Q60 62 55 82 Z" fill="#141414"/>
+    <circle cx="80" cy="40" r="5" fill="#C59A52"/>
+    <path d="M62 50 q6 -4 12 -1 M86 49 q6 -3 12 1" stroke="#C59A52" stroke-width="2" fill="none"/>
+    <!-- face -->
+    <path d="M70 82 q4 -3 8 0 M84 82 q4 -3 8 0" stroke="#141414" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+    <path d="M71 80 l-3 -3 M89 80 l3 -3" stroke="#141414" stroke-width="1.6" stroke-linecap="round"/>
+    <path d="M72 95 q8 8 16 0 q-2 8 -8 8 q-6 0 -8 -8 Z" fill="#9B2C3D"/>
+    <circle cx="66" cy="91" r="4" fill="#E58C7A" opacity=".4"/><circle cx="94" cy="91" r="4" fill="#E58C7A" opacity=".4"/>
+    <circle cx="57" cy="92" r="2.5" fill="#C59A52"/><circle cx="103" cy="92" r="2.5" fill="#C59A52"/>
+  </g>
+</svg>

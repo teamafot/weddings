@@ -7,7 +7,7 @@ Ever After designs glamorous wedding websites for couples in Ghana: a tap-to-ope
 🌐 **Website:** [teamafot.github.io/weddings](https://teamafot.github.io/weddings/)
 
 ## Get in touch
-- **WhatsApp and calls:** 024 550 2417
+- **WhatsApp and calls:** 055 231 8104
 - **Email:** teamafot@gmail.com
 - **Location:** Accra, Ghana
 
